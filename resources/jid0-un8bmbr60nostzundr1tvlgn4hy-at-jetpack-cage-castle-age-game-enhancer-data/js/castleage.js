@@ -1,0 +1,48 @@
+// CAGE stuff working on Castle Age site
+var CastleAge = {
+	bqh : null,
+	signed_request : null,
+	userId : null,
+	inGuild : null,
+	startInterval : null,
+	started : false
+};
+
+var CAGE = {
+	version : '1.0.51β',
+	fastAnim : 200,
+	slowAnim : 600
+};
+
+com.initContentScript(com.port.castleAge);
+$('head').append('<link id="cageTheme" rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/dark-hive/jquery-ui.css">');
+$('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/cage.css">');
+$('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/ca_cage.css">');
+$('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/ui.selectmenu.css">');
+
+var _elm = {
+	cage : '<div id="cageContainer"></div>',
+	general : '<div id="cageGeneralContainer" class="ui-corner-br ui-widget-content"></div>',
+	generalImageContainer : '<div id="cageGeneralImageContainer" class="ui-state-active ui-corner-all"></div>',
+	generalImage : '<img id="cageGeneralImage" class="ui-corner-all" src="http://image4.castleagegame.com/graphics/shield_wait.gif"/>',
+	generalName : '<span id="cageGeneralName" class="ui-state-active ui-corner-right"></span>',
+	generalValues : '<span id="cageGeneralValues" class="ui-state-active ui-corner-br"><img src="http://image4.castleagegame.com/graphics/demi_symbol_2.gif" class="cageGeneralAttDefImg" /><span id="cageGeneralAttack" class="cageGeneralAttDefText"></span><img src="http://image4.castleagegame.com/graphics/demi_symbol_3.gif" class="cageGeneralAttDefImg" /><span id="cageGeneralDefense" class="cageGeneralAttDefText"></span></span>',
+	generalSelector : '<div id="cageGeneralSelector" class="ui-widget-content ui-corner-bottom">',
+	tools : '<div id="cageToolsContainer" class="ui-widget-content ui-corner-right"></div>',
+	settings : '<div id="cageSettingContainer" class="ui-widget-content ui-corner-right"></div>'
+};
+
+$(document.body).prepend($(_elm.cage).append($(_elm.general).append($(_elm.generalImageContainer).append(_elm.generalImage)).append(_elm.generalName).append(_elm.generalValues)).append(_elm.tools).append(_elm.settings)).prepend(_elm.generalSelector);
+_elm = undefined;
+
+/**/
+
+CastleAge.startInterval = window.setInterval(function() {
+	if(CastleAge.signed_request !== null && CastleAge.userId !== null) {
+		window.clearInterval(CastleAge.startInterval);
+		initTools();
+		console.log('initTools');
+	} else {
+		com.send(com.task.castleAgeReady, com.port.facebook);
+	}
+}, 50);
