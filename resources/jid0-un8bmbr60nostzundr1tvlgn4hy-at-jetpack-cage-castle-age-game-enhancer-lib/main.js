@@ -43,7 +43,8 @@ function passCAMessage(_data) {
 	if(com.worker.facebook !== null) {
 		com.worker.facebook.port.emit(com.port.facebook, _data);
 	} else {
-		window.setTimeout(function() {passCAMessage(_data)
+		window.setTimeout(function() {
+			passCAMessage(_data);
 		}, 100);
 	}
 }
@@ -52,7 +53,8 @@ function passFBMessage(_data) {
 	if(com.worker.castleAge !== null) {
 		com.worker.castleAge.port.emit(com.port.castleAge, _data);
 	} else {
-		window.setTimeout(function() {passFBMessage(_data)
+		window.setTimeout(function() {
+			passFBMessage(_data);
 		}, 100);
 	}
 }
@@ -71,8 +73,8 @@ var pageModFacebook = require("page-mod").PageMod({
 			data.url("js/common.js"),
 			data.url("js/fb/fb_receiver.js"),
 			data.url("js/fb/fb_start.js"),
-			data.url("js/facebook.js")
-			//data.url("js/fb/news.js")
+			data.url("js/facebook.js"),
+			data.url("js/fb/news.js")
 		],
 	onAttach: function onAttach(worker) {
 		com.worker.facebook = worker;
