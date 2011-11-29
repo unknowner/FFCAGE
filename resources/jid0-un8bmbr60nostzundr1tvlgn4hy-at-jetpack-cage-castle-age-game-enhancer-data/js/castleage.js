@@ -19,7 +19,6 @@ com.initContentScript(com.port.castleAge);
 $('head').append('<link id="cageTheme" rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/dark-hive/jquery-ui.css">');
 $('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/cage.css">');
 $('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/ca_cage.css">');
-$('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/fb_cage.css">');
 $('head').append('<link rel="stylesheet" type="text/css" href="resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/ui.selectmenu.css">');
 
 var _elm = {

@@ -38,6 +38,24 @@ var com = {
 
 var data = require("self").data,
 		workers = {};
+		
+function passCAMessage(_data) {
+	if(com.worker.facebook !== null) {
+		com.worker.facebook.port.emit(com.port.facebook, _data);
+	} else {
+		window.setTimeout(function() {passCAMessage(_data)
+		}, 100);
+	}
+}
+
+function passFBMessage(_data) {
+	if(com.worker.castleAge !== null) {
+		com.worker.castleAge.port.emit(com.port.castleAge, _data);
+	} else {
+		window.setTimeout(function() {passFBMessage(_data)
+		}, 100);
+	}
+}
 
 console.log('FB...');
 var pageModFacebook = require("page-mod").PageMod({
@@ -58,13 +76,13 @@ var pageModFacebook = require("page-mod").PageMod({
 		],
 	onAttach: function onAttach(worker) {
 		com.worker.facebook = worker;
-		com.worker.facebook.port.on(com.port.castleAge, function(_data){
-			com.worker.castleAge.port.emit(com.port.castleAge, _data);
-			console.log('fbworker:', _data);
+		com.worker.facebook.port.on(com.port.castleAge, function(_data) {
+			passFBMessage(_data);
 		});
     console.log('FB attached:');		
 	}
 });
+
 console.log('CA...');	
 var pageModCastleAge = require("page-mod").PageMod({
 	include : [
@@ -128,13 +146,12 @@ var pageModCastleAge = require("page-mod").PageMod({
 			
 			data.url("js/castleage.js")
 		],
-	onAttach: function onAttach(worker) {
+		onAttach: function onAttach(worker) {
 		com.worker.castleAge = worker;
-		com.worker.castleAge.port.on(com.port.facebook, function(_data){
-			com.worker.facebook.port.emit(com.port.facebook, _data);
-			console.log('caworker:', _data);
+		com.worker.castleAge.port.on(com.port.facebook, function(_data) {
+			passCAMessage(_data);
 		});
-		console.log('CA attached:');	
+		console.log('CA attached:');
 	}
 });
 //com.initBackground();
