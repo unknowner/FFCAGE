@@ -70,7 +70,7 @@ tools['Eliteguard'].done = function () {
 	tools['Eliteguard'].fbButton.enable();
 };
 tools['Eliteguard'].init = function () {
-	tools['Eliteguard'].fbButton.add("EliteGuard", function () {
+	tools['Eliteguard'].fbButton.add(language.eliteguardButton, function () {
 		tools['Eliteguard'].fbButton.disable();
 		tools['Eliteguard'].start();
 	});

@@ -75,9 +75,10 @@ var pageModCastleAge = require("page-mod").PageMod({
 	contentScriptFile : [
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
-			//data.url("js/ui.selectmenu.js"),
+			data.url("js/ui.selectmenu.js"),
 			data.url("js/firefox_com.js"),
 			data.url("js/common.js"),
+			data.url("js/language.js"),
 			
 			data.url("js/ca/tool.js"),
 			data.url("js/ca/ca_tools.js"),
@@ -100,7 +101,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/tool/armyFiller.js"),
 			data.url("js/ca/tool/demi.js"),
 
-			//data.url("js/ca/setting/theme.js",
+			data.url("js/ca/setting/theme.js"),
 			
 			data.url("js/ca/page/allpages.js"),
 			data.url("js/ca/page/index.js"),
@@ -122,8 +123,8 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/page/battle.js"),
 			data.url("js/ca/page/army_news_feed.js"),
 			data.url("js/ca/page/army_member.js"),
-			//data.url("js/ca/page/battle_expansion_monster.js"),
-			//data.url("js/ca/page/guildv2_battle_monster.js"),
+			data.url("js/ca/page/battle_expansion_monster.js"),
+			data.url("js/ca/page/guildv2_battle_monster.js"),
 			
 			data.url("js/castleage.js")
 		],
