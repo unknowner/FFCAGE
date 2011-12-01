@@ -145,6 +145,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/page/army_member.js"),
 			data.url("js/ca/page/battle_expansion_monster.js"),
 			data.url("js/ca/page/guildv2_battle_monster.js"),
+			data.url("js/ca/page/treasure_chest.js"),
 			
 			data.url("js/castleage.js")
 		],

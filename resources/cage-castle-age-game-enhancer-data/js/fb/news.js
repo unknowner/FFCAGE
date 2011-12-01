@@ -5,9 +5,7 @@ $('#cageNewsText').text('You\'re now running CAGE and making your Castle Age lif
 $('#cageNewsFoot').prepend('<p style="text-align: left;"><b>NOTICE: </b>CAGE for Firefox is still in early testing, some stuff might be broken.</p>');
 $.each(
 	[
-		'FIX: Installation problems',
-		'FIX: Missing defense percentage',
-		'FIX: Some CSS stuff'
+		'FIX: Overlay problems at chests'
 	], function(_i, _e) {
 	$('#cageNewsChanges').append('<li><span>' + _e.split(':')[0] + ':</span>' + _e.split(':')[1] + '</li>');
 });
