@@ -3,7 +3,7 @@ new tool('Theme');
 tools['Theme'].start = function() {
 
 	var _theme = item.get('Theme', 'Dark Hive (default)');
-	console.log(_theme);
+	console.log('theme:' + _theme);
 	$('#cageTheme').attr('href', CAGE.themes[_theme] + 'jquery-ui.css');
 	$('#cageThemeSelector option[value="'+_theme+'"]').attr('selected',true);
 	$('#cageThemeSelector').selectmenu({
@@ -16,7 +16,7 @@ tools['Theme'].init = function () {
 
 	// Themes
 	CAGE.themes = {
-		'Dark Hive (default)' : 'resource://cage-castle-age-game-enhancer-data/css/dark-hive/',
+		'Dark Hive (default)' : getPath('css/dark-hive/'),
 		'Base' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/',
 		'Black tie' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/',
 		'Blitzer' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/blitzer/',

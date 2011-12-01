@@ -16,10 +16,11 @@ var CAGE = {
 
 com.initContentScript(com.port.castleAge);
 
-$('head').append('<link id="cageTheme" rel="stylesheet" type="text/css" href="resource://cage-castle-age-game-enhancer-data/css/dark-hive/jquery-ui.css">');
-$('head').append('<link rel="stylesheet" type="text/css" href="resource://cage-castle-age-game-enhancer-data/css/cage.css">');
-$('head').append('<link rel="stylesheet" type="text/css" href="resource://cage-castle-age-game-enhancer-data/css/ca_cage.css">');
-$('head').append('<link rel="stylesheet" type="text/css" href="resource://cage-castle-age-game-enhancer-data/css/ui.selectmenu.css">');
+$('head')
+	.append('<link id="cageTheme" rel="stylesheet" type="text/css" href="' + getPath('css/dark-hive/jquery-ui.css') + '">')
+	.append('<link rel="stylesheet" type="text/css" href="' + getPath('css/cage.css') + '">')
+	.append('<link rel="stylesheet" type="text/css" href="' + getPath('css/ca_cage.css') + '">')
+	.append('<link rel="stylesheet" type="text/css" href="' + getPath('css/ui.selectmenu.css') + '">');
 
 var _elm = {
 	cage : '<div id="cageContainer"></div>',

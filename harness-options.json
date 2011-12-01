@@ -798,7 +798,7 @@
    }, 
    "sectionName": "lib"
   }, 
-  "resource://cage-castle-age-game-enhancer-lib/main.js": {
+  "resource://cage-lib/main.js": {
    "docsSHA256": null, 
    "jsSHA256": "e55187f67bb242ba9fa8f65d07a95d7bd181dae7e055f8f0c5def59ca754c82c", 
    "moduleName": "main", 
@@ -808,8 +808,8 @@
      "uri": "resource://addon-kit-lib/page-mod.js"
     }, 
     "self": {
-     "dataURIPrefix": "resource://cage-castle-age-game-enhancer-data/", 
-     "mapName": "cage-castle-age-game-enhancer-data", 
+     "dataURIPrefix": "resource://cage-data/", 
+     "mapName": "cage-data", 
      "mapSHA256": "8a646ceac19936fde3f9f85eb9fd9494f6a48fce57e207772a03633b94b4dc92"
     }
    }, 
@@ -857,22 +857,22 @@
    "description": "CAGE makes playing Castle Age on Facebook a bit easier and a lot more fun )", 
    "main": "main", 
    "name": "cage-castle-age-game-enhancer", 
-   "version": "1.0.55"
+   "version": "1.0.56"
   }
  }, 
  "name": "cage-castle-age-game-enhancer", 
  "packageData": {
   "addon-kit": "resource://addon-kit-data/", 
   "api-utils": "resource://api-utils-data/", 
-  "cage-castle-age-game-enhancer": "resource://cage-castle-age-game-enhancer-data/"
+  "cage-castle-age-game-enhancer": "resource://cage-data/"
  }, 
  "resourcePackages": {
   "addon-kit-data": "addon-kit", 
   "addon-kit-lib": "addon-kit", 
   "api-utils-data": "api-utils", 
   "api-utils-lib": "api-utils", 
-  "cage-castle-age-game-enhancer-data": "cage-castle-age-game-enhancer", 
-  "cage-castle-age-game-enhancer-lib": "cage-castle-age-game-enhancer"
+  "cage-data": "cage-castle-age-game-enhancer", 
+  "cage-lib": "cage-castle-age-game-enhancer"
  }, 
  "resources": {
   "addon-kit-data": [
@@ -891,17 +891,17 @@
    "resources", 
    "api-utils-lib"
   ], 
-  "cage-castle-age-game-enhancer-data": [
+  "cage-data": [
    "resources", 
-   "cage-castle-age-game-enhancer-data"
+   "cage-data"
   ], 
-  "cage-castle-age-game-enhancer-lib": [
+  "cage-lib": [
    "resources", 
-   "cage-castle-age-game-enhancer-lib"
+   "cage-lib"
   ]
  }, 
  "rootPaths": [
-  "resource://cage-castle-age-game-enhancer-lib/", 
+  "resource://cage-lib/", 
   "resource://api-utils-lib/", 
   "resource://addon-kit-lib/"
  ], 

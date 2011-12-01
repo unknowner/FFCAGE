@@ -69,7 +69,7 @@ var pageModFacebook = require("page-mod").PageMod({
 	contentScriptFile : [
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
-			data.url("js/firefox_com.js"),
+			data.url("js/firefox.js"),
 			data.url("js/common.js"),
 			data.url("js/fb/fb_receiver.js"),
 			data.url("js/fb/fb_start.js"),
@@ -96,7 +96,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
 			data.url("js/ui.selectmenu.js"),
-			data.url("js/firefox_com.js"),
+			data.url("js/firefox.js"),
 			data.url("js/common.js"),
 			data.url("js/language.js"),
 			

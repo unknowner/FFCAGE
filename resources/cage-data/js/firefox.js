@@ -1,4 +1,9 @@
-// Fireox
+// Firefox get path to internals
+function getPath(_file){
+	return 'resource://cage-data/' + _file
+}
+
+// Firefox communication
 var com = {
 	// Port names
 	port: {
