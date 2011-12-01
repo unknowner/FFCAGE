@@ -16,7 +16,7 @@ tools['Theme'].init = function () {
 
 	// Themes
 	CAGE.themes = {
-		'Dark Hive (default)' : 'resource://jid0-un8bmbr60nostzundr1tvlgn4hy-at-jetpack-cage-castle-age-game-enhancer-data/css/dark-hive/',
+		'Dark Hive (default)' : 'resource://cage-castle-age-game-enhancer-data/css/dark-hive/',
 		'Base' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/',
 		'Black tie' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/',
 		'Blitzer' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/blitzer/',
