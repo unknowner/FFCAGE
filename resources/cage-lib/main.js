@@ -22,6 +22,7 @@ var com = {
 		general: 'TASK_GENERAL',
 		updateGenerals: 'TASK_UPDATEGENERALS',
 		castleAgeReady: 'TASK_CAREADY',
+		showAllGenerals: 'TASK_SHOWALLGENERALS',
 		heal: 'TASK_HEAL',
 		signed: 'TASK_SIGNED',
 		userId: 'TASK_USERID',
@@ -32,7 +33,8 @@ var com = {
 		updateGifter: 'TASK_UPDATEGIFTER',
 		startGifter: 'TASK_STARTGIFTER',
 		startStash: 'TASK_STASH',
-		resize: 'TASK_RESIZE'
+		resize: 'TASK_RESIZE',
+		showSettings: 'TASK_SETTINGS'
 	}
 };
 
@@ -67,6 +69,7 @@ var pageModFacebook = require("page-mod").PageMod({
 		],
 	contentScriptWhen : 'end',
 	contentScriptFile : [
+			data.url("js/version.js"),
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
 			data.url("js/firefox.js"),
@@ -93,6 +96,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		],
 	contentScriptWhen : 'end',
 	contentScriptFile : [
+			data.url("js/version.js"),
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
 			data.url("js/ui.selectmenu.js"),
@@ -104,24 +108,24 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/ca_tools.js"),
 			data.url("js/ca/ca_receiver.js"),
 			
-			data.url("js/ca/tool/cage.js"),
-			data.url("js/ca/tool/assister.js"),
-			data.url("js/ca/tool/gifter.js"),
 			data.url("js/ca/tool/functions.js"),
-			data.url("js/ca/tool/page.js"),
-			data.url("js/ca/tool/generals.js"),
-			data.url("js/ca/tool/eliteguard.js"),
-			data.url("js/ca/tool/heal.js"),
-			data.url("js/ca/tool/stash.js"),
 			data.url("js/ca/tool/nav.js"),
-			data.url("js/ca/tool/abilities.js"),
-			data.url("js/ca/tool/potionStamina.js"),
-			data.url("js/ca/tool/potionEnergy.js"),
+			data.url("js/ca/tool/cage.js"),
 			data.url("js/ca/tool/settings.js"),
+			
+			data.url("js/ca/tool/abilities.js"),
 			data.url("js/ca/tool/armyFiller.js"),
+			data.url("js/ca/tool/assister.js"),
 			data.url("js/ca/tool/demi.js"),
-
-			data.url("js/ca/setting/theme.js"),
+			data.url("js/ca/tool/eliteguard.js"),
+			data.url("js/ca/tool/generals.js"),
+			data.url("js/ca/tool/gifter.js"),
+			data.url("js/ca/tool/heal.js"),
+			data.url("js/ca/tool/page.js"),
+			data.url("js/ca/tool/potionEnergy.js"),
+			data.url("js/ca/tool/potionStamina.js"),
+			data.url("js/ca/tool/stash.js"),
+			data.url("js/ca/tool/stats.js"),
 			
 			data.url("js/ca/page/allpages.js"),
 			data.url("js/ca/page/index.js"),

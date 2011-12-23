@@ -1,8 +1,7 @@
 /*
-* FIREFOX only
+* CHROME only
 */
-
-//Desktop notes chrome only
+// Chrome Desktop notifications
 function note(_data) {
 	var _note = webkitNotifications.createNotification('img/icon64.png', _data.t, _data.m);
 	_note.show();
@@ -11,31 +10,17 @@ function note(_data) {
 	}, 10000);
 }
 
-// update check
-/*.getJSON('https://github.com/downloads/unknowner/FFCAGE/update.json', function(_data) {
- console.log('data:', _data);
- });*/
-var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
-$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-	console.log(data);
-	//data returned
-	console.log(textStatus);
-	//success
-	console.log(_window['cageFFVersion']);
-});
-// CSS problems
-$('body').css('height', '100%');
-
-// Firefox get path to internals
+// Chrome get path to internals
 function getPath(_file) {
-	return 'resource://cage-data/' + _file // 'resource://cage-data/' +
+	return chrome.extension.getURL(_file);
 }
 
-// Firefox communication
+// Chrome communication
 var com = {
 	// Port names
 	port : {
 		current : null,
+		background : 'PORT_BACKGROUND',
 		castleAge : 'PORT_CASTLEAGE',
 		facebook : 'PORT_FACEBOOK'
 	},
@@ -43,6 +28,7 @@ var com = {
 	ports : {},
 	// Available tasks
 	task : {
+		alive : 'TASK_ALIVE',
 		init : 'TASK_INIT',
 		fbReady : 'TASK_FBREADY',
 		getGeneral : 'TASK_GETGENERAL',
@@ -65,26 +51,33 @@ var com = {
 	},
 	// Called in content script to setup port
 	initPort : function(_port) {
-		console.log('initContentScript:', _port);
-		com.port.current = {
+		com.port.current = chrome.extension.connect({
 			name : _port
-		};
-		self.port.on(_port, function(_data) {
-			receiver(_data);
+		});
+		com.port.current.onMessage.addListener(receiver);
+	},
+	// Called in background.html to setup port listeners
+	initBackground : function() {
+		chrome.extension.onConnect.addListener(function(_port) {
+			console.log('onconnect:', _port);
+			com.ports[_port.name] = _port;
+			_port.onMessage.addListener(function(_message) {
+				console.log('onMessage:', _message);
+				if(_message.port == com.port.background) {
+					note(_message.data);
+				} else {
+					com.ports[_message.port].postMessage(_message);
+				}
+			});
 		});
 	},
 	// Send Messages to ports
 	send : function(_task, _port, _data) {
-		console.log('send:', _task, _port, _data);
-		if(_task == 'NOTE') {
-			console.log('NOTE:', _data.t, _data.m)
-		} else {
-			self.port.emit(_port, {
-				task : _task,
-				port : _port,
-				data : _data
-			});
-		}
+		com.port.current.postMessage({
+			task : _task,
+			port : _port,
+			data : _data
+		});
 	},
 	note : function(_title, _message) {
 		com.send('NOTE', com.port.background, {

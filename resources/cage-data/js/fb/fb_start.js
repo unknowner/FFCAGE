@@ -8,7 +8,7 @@ function startCAGE() {
 		_i.value = Env.user;
 		document.body.appendChild(_i);
 	}, null, true, true);
-
+	// Iframe changes
 	$('#cageIFrame').html('.cageIFrame {height:' + (window.innerHeight - 34) + 'px !important;}');
 	$('#iframe_canvas').addClass('cageIFrame').attr('scrolling', 'yes');
 
@@ -23,9 +23,12 @@ function startCAGE() {
 		}, "text")
 	}, 1200000);
 
+	window.setInterval(function() {
+		com.send(com.task.alive, com.port.castleAge, null);
+	}, 600000);
 	// Possible fix for framing problem
 	$('body').removeClass('center_fixed_width_app');
-	
+
 	$('#cageNews').dialog('open');
 	$('#cageNews a').blur();
 

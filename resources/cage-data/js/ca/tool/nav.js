@@ -1,6 +1,6 @@
 new tool('Nav');
-tools['Nav'].runtime = {};
-tools['Nav'].runtime['menu'] = {
+tools.Nav.runtime = {};
+tools.Nav.runtime['menu'] = {
 	'Home' : {
 		url : 'index.php',
 		items : {
@@ -155,17 +155,20 @@ tools['Nav'].runtime['menu'] = {
 		url : 'guildv2_home.php'
 	}
 };
-tools['Nav'].init = function() {
+tools.Nav.init = function() {
 
-	$(document.body).append($('<div id="cageMenu"><ul></ul></div>').addClass('ui-widget ui-state-default'));
-	tools['Nav'].start();
+	$('#cageContainer').append($('<div id="cageMenu"><ul></ul></div>').addClass('ui-widget ui-state-default'));
+	get('guildv2_home.php', function(data) {
+		CastleAge.inGuild = data.search(/Invite Members and Blast your guild!/) == -1 ? false : true;
+		tools.Nav.start();
+	});
 
 };
-tools['Nav'].start = function() {
+tools.Nav.start = function() {
 
 	if(CastleAge.inGuild !== null) {
 		if(CastleAge.inGuild == true) {
-			tools['Nav'].runtime['menu'].Guild = {
+			tools.Nav.runtime['menu'].Guild = {
 				url : 'guildv2_home.php',
 				items : {
 					'Manage' : {
@@ -186,7 +189,7 @@ tools['Nav'].start = function() {
 				}
 			};
 		}
-		$.each(tools['Nav'].runtime['menu'], function(_i, _e) {
+		$.each(tools.Nav.runtime['menu'], function(_i, _e) {
 			$('#cageMenu ul:first').append($('<li id="cageMenu' + _i + '">').hover(function() {
 				$(this).find('ul').show();
 			}, function() {
@@ -206,14 +209,15 @@ tools['Nav'].start = function() {
 		});
 		$('#cageMenu ul li button').button().removeClass('ui-corner-all');
 	} else {
-		if(CastleAge.signed_request !== null) {
-			$.get('guild.php?signed_request=' + CastleAge.signed_request, function(data) {
-				CastleAge.inGuild = data.search(/tab_guild_current_battles/) == -1 ? false : true;
-				tools['Nav'].start();
-			});
-		} else {
-			window.setTimeout(tools['Nav'].start, 50);
-		}
+		window.setTimeout(tools.Nav.start, 50);
+		/*if(CastleAge.signed_request !== null) {
+		 get('guildv2_home.php', function(data) {
+		 CastleAge.inGuild = data.search(/tab_guild_current_battles/) == -1 ? false : true;
+		 tools.Nav.start();
+		 });
+		 } else {
+
+		 }*/
 	}
 
 };
