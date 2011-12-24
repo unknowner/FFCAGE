@@ -17,11 +17,11 @@ function note(_data) {
  });*/
 var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
 $.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-	console.log(data);
-	//data returned
-	console.log(textStatus);
-	//success
-	console.log(_window['cageFFVersion']);
+	if(_window['cageFFVersion'] != version.string()) {
+		console.log(_window['cageFFVersion'], version.string())
+		alert('An update for CAGE is available, update will be downloaded.');
+		location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi';
+	}
 });
 // CSS problems
 $('body').css('height', '100%');

@@ -96,7 +96,6 @@ var pageModCastleAge = require("page-mod").PageMod({
 		],
 	contentScriptWhen : 'end',
 	contentScriptFile : [
-			data.url("js/version.js"),
 			data.url("js/jquery.js"),
 			data.url("js/jqueryui.js"),
 			data.url("js/ui.selectmenu.js"),
