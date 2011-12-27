@@ -20,11 +20,15 @@ $.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(
 	if(_window['cageFFVersion'] != version.string()) {
 		console.log(_window['cageFFVersion'], version.string())
 		alert('An update for CAGE is available, update will be downloaded.');
-		location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi';
+		location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi?x=' + (Math.random() * 1000);
 	}
 });
 // CSS problems
-$('body').css('height', '100%');
+$('body').css({
+	'height' : '100%',
+	'width' : '100%',
+	'position' : 'fixed'
+});
 
 // Firefox get path to internals
 function getPath(_file) {
