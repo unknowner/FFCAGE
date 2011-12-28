@@ -24,25 +24,20 @@ tools.Gifter.update = function() {
 	//prepare update event to receive userids and request ids
 	customEvent('GiftRequests', function() {
 		var _gifts = JSON.parse($('#GiftRequests').val());
-		try {
-			if(_gifts) {
-				$.each(_gifts.data, function(_i, _e) {
-					if(_e.from !== null) {
-						com.note('Gifter', 'You accepted a gift from ' + _e.from.name);
-						if($.inArray(_e.from.id, tools.Gifter.runtime.sendGiftTo) == -1) {
-							tools.Gifter.runtime.sendGiftTo.push(_e.from.id);
-						}
-						tools.Gifter.runtime.requests.push(_e.id);
+		if(_gifts) {
+			$.each(_gifts.data, function(_i, _e) {
+				if(_e.from !== null) {
+					com.note('Gifter', 'You accepted a gift from ' + _e.from.name);
+					if($.inArray(_e.from.id, tools.Gifter.runtime.sendGiftTo) == -1) {
+						tools.Gifter.runtime.sendGiftTo.push(_e.from.id);
 					}
-				});
-				item.set('CAGEsendGiftTo', tools.Gifter.runtime.sendGiftTo);
-				tools.Gifter.runtimeUpdate();
-			}
-			tools.Gifter.work();
-		} catch (e) {
-			console.log("ERROR:", e);
+					tools.Gifter.runtime.requests.push(_e.id);
+				}
+			});
+			item.set('CAGEsendGiftTo', tools.Gifter.runtime.sendGiftTo);
+			tools.Gifter.runtimeUpdate();
 		}
-
+		tools.Gifter.work();
 	});
 	addFunction(function() {
 		FB.api('/me/apprequests/', function(_response) {
@@ -68,6 +63,7 @@ tools.Gifter.done = function() {
 };
 tools.Gifter.newRequestForm = function() {
 
+	tools.Gifter.runtimeUpdate();
 	addFunction(function(_giftData) {
 		var cageGiftUserList = [];
 		FB.api('me/friendlists', function(responseFriendlist) {
@@ -181,7 +177,6 @@ tools.Gifter.newRequestForm = function() {
 	}), true, true);
 };
 tools.Gifter.init = function() {
-	tools.Gifter.runtimeUpdate();
 	tools.Gifter.newRequestForm();
 	tools.Gifter.fbButton.add(language.gifterButton, function() {
 		tools.Gifter.fbButton.disable();

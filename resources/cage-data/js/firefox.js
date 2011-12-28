@@ -12,17 +12,16 @@ function note(_data) {
 }
 
 // update check
-/*.getJSON('https://github.com/downloads/unknowner/FFCAGE/update.json', function(_data) {
- console.log('data:', _data);
- });*/
 var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
-$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-	if(_window['cageFFVersion'] != version.string()) {
-		console.log(_window['cageFFVersion'], version.string())
-		alert('An update for CAGE is available, update will be downloaded.');
-		location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi?x=' + (Math.random() * 1000);
-	}
-});
+if(_window.location.hostname == 'apps.facebook.com') {
+	$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
+		if(_window['cageFFVersion'] != version.string()) {
+			console.log(_window['cageFFVersion'], version.string())
+			alert('An update for CAGE is available, update will be downloaded.');
+			location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi?x=' + (Math.random() * 1000);
+		}
+	});
+}
 // CSS problems
 $('body').css({
 	'height' : '100%',

@@ -1,5 +1,5 @@
 // version stuff
-var version = {
+version = {
 	major : 1,
 	minor : 1,
 	revision : 4,
