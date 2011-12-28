@@ -7,6 +7,8 @@ VER: 1.1.4β
 	FIX: Settings
 	FIX: Version checks
 	FIX: Demi reward popup not showing
+	ADD: Guild Class switcher
+	FIX: Double update call
 
 ==================================================================
 VER: 1.0.56β
