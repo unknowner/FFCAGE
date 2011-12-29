@@ -13,7 +13,8 @@ $.each(
 		'FIX: Demi reward popup not showing',
 		'ADD: Guild Class switcher',
 		'FIX: Double update call',
-		'FIX: Monster/Quest pop ups'
+		'FIX: Monster/Quest pop ups',
+		'ADD: Demi Timer'
 	], function(_i, _e) {
 	$('#cageNewsChanges').append('<li><span>' + _e.split(':')[0] + ':</span>' + _e.split(':')[1] + '</li>');
 });

@@ -9,6 +9,8 @@ VER: 1.1.4β
 	FIX: Demi reward popup not showing
 	ADD: Guild Class switcher
 	FIX: Double update call
+	FIX: Monster/Quest pop ups
+	ADD: Demi Timer
 
 ==================================================================
 VER: 1.0.56β
