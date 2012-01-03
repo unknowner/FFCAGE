@@ -1,811 +1,772 @@
 {
- "bootstrap": {
-  "classID": "{ba0ddf84-9cde-47d0-9e23-938d9ff266d0}", 
-  "contractID": "@mozilla.org/harness-service;1?id=CAGE@Firefox"
- }, 
- "bundleID": "CAGE@Firefox", 
- "enable_e10s": false, 
- "jetpackID": "CAGE@Firefox", 
- "loader": "resource://api-utils-lib/cuddlefish.js", 
- "main": "main", 
- "manifest": {
-  "resource://addon-kit-lib/page-mod.js": {
-   "moduleName": "page-mod", 
-   "packageName": "addon-kit", 
-   "requirements": {
-    "api-utils/content": {
-     "uri": "resource://api-utils-lib/content.js"
-    }, 
-    "api-utils/events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "api-utils/list": {
-     "uri": "resource://api-utils-lib/list.js"
-    }, 
-    "api-utils/match-pattern": {
-     "uri": "resource://api-utils-lib/match-pattern.js"
-    }, 
-    "api-utils/observer-service": {
-     "uri": "resource://api-utils-lib/observer-service.js"
-    }, 
-    "api-utils/utils/registry": {
-     "uri": "resource://api-utils-lib/utils/registry.js"
-    }, 
-    "api-utils/xul-app": {
-     "uri": "resource://api-utils-lib/xul-app.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://addon-kit-lib/windows.js": {
-   "moduleName": "windows", 
-   "packageName": "addon-kit", 
-   "requirements": {
-    "api-utils/api-utils": {
-     "uri": "resource://api-utils-lib/api-utils.js"
-    }, 
-    "api-utils/events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "api-utils/list": {
-     "uri": "resource://api-utils-lib/list.js"
-    }, 
-    "api-utils/tabs/tab": {
-     "uri": "resource://api-utils-lib/tabs/tab.js"
-    }, 
-    "api-utils/traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }, 
-    "api-utils/unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "api-utils/window-utils": {
-     "uri": "resource://api-utils-lib/window-utils.js"
-    }, 
-    "api-utils/windows/dom": {
-     "uri": "resource://api-utils-lib/windows/dom.js"
-    }, 
-    "api-utils/windows/loader": {
-     "uri": "resource://api-utils-lib/windows/loader.js"
-    }, 
-    "api-utils/windows/tabs": {
-     "uri": "resource://api-utils-lib/windows/tabs.js"
-    }, 
-    "api-utils/xpcom": {
-     "uri": "resource://api-utils-lib/xpcom.js"
-    }, 
-    "api-utils/xul-app": {
-     "uri": "resource://api-utils-lib/xul-app.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/api-utils.js": {
-   "moduleName": "api-utils", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/byte-streams.js": {
-   "moduleName": "byte-streams", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/collection.js": {
-   "moduleName": "collection", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/content.js": {
-   "moduleName": "content", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./content/loader": {
-     "uri": "resource://api-utils-lib/content/loader.js"
-    }, 
-    "./content/symbiont": {
-     "uri": "resource://api-utils-lib/content/symbiont.js"
-    }, 
-    "./content/worker": {
-     "uri": "resource://api-utils-lib/content/worker.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/content/content-proxy.js": {
-   "moduleName": "content/content-proxy", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/content/loader.js": {
-   "moduleName": "content/loader", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../api-utils": {
-     "uri": "resource://api-utils-lib/api-utils.js"
-    }, 
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../file": {
-     "uri": "resource://api-utils-lib/file.js"
-    }, 
-    "../url": {
-     "uri": "resource://api-utils-lib/url.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/content/symbiont.js": {
-   "moduleName": "content/symbiont", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../hidden-frame": {
-     "uri": "resource://api-utils-lib/hidden-frame.js"
-    }, 
-    "../observer-service": {
-     "uri": "resource://api-utils-lib/observer-service.js"
-    }, 
-    "../unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "./loader": {
-     "uri": "resource://api-utils-lib/content/loader.js"
-    }, 
-    "./worker": {
-     "uri": "resource://api-utils-lib/content/worker.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/content/worker.js": {
-   "moduleName": "content/worker", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../cortex": {
-     "uri": "resource://api-utils-lib/cortex.js"
-    }, 
-    "../cuddlefish": {
-     "uri": "resource://api-utils-lib/cuddlefish.js"
-    }, 
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../file": {
-     "uri": "resource://api-utils-lib/file.js"
-    }, 
-    "../observer-service": {
-     "uri": "resource://api-utils-lib/observer-service.js"
-    }, 
-    "../tabs/tab": {
-     "uri": "resource://api-utils-lib/tabs/tab.js"
-    }, 
-    "../timer": {
-     "uri": "resource://api-utils-lib/timer.js"
-    }, 
-    "../traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }, 
-    "../unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "../url": {
-     "uri": "resource://api-utils-lib/url.js"
-    }, 
-    "../utils/function": {
-     "uri": "resource://api-utils-lib/utils/function.js"
-    }, 
-    "./content-proxy": {
-     "uri": "resource://api-utils-lib/content/content-proxy.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/cortex.js": {
-   "moduleName": "cortex", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/cuddlefish.js": {
-   "moduleName": "cuddlefish", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "api-utils/memory": {
-     "uri": "resource://api-utils-lib/memory.js"
-    }, 
-    "api-utils/plain-text-console": {
-     "uri": "resource://api-utils-lib/plain-text-console.js"
-    }, 
-    "api-utils/securable-module": {
-     "uri": "resource://api-utils-lib/securable-module.js"
-    }, 
-    "api-utils/shims": {
-     "uri": "resource://api-utils-lib/shims.js"
-    }, 
-    "api-utils/unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/dom/events.js": {
-   "moduleName": "dom/events", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/errors.js": {
-   "moduleName": "errors", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/events.js": {
-   "moduleName": "events", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./light-traits": {
-     "uri": "resource://api-utils-lib/light-traits.js"
-    }, 
-    "./traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/events/assembler.js": {
-   "moduleName": "events/assembler", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../dom/events": {
-     "uri": "resource://api-utils-lib/dom/events.js"
-    }, 
-    "../light-traits": {
-     "uri": "resource://api-utils-lib/light-traits.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/file.js": {
-   "moduleName": "file", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./byte-streams": {
-     "uri": "resource://api-utils-lib/byte-streams.js"
-    }, 
-    "./text-streams": {
-     "uri": "resource://api-utils-lib/text-streams.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/hidden-frame.js": {
-   "moduleName": "hidden-frame", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./api-utils": {
-     "uri": "resource://api-utils-lib/api-utils.js"
-    }, 
-    "./collection": {
-     "uri": "resource://api-utils-lib/collection.js"
-    }, 
-    "./errors": {
-     "uri": "resource://api-utils-lib/errors.js"
-    }, 
-    "./timer": {
-     "uri": "resource://api-utils-lib/timer.js"
-    }, 
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "./xul-app": {
-     "uri": "resource://api-utils-lib/xul-app.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/light-traits.js": {
-   "moduleName": "light-traits", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/list.js": {
-   "moduleName": "list", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/match-pattern.js": {
-   "moduleName": "match-pattern", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./url": {
-     "uri": "resource://api-utils-lib/url.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/memory.js": {
-   "moduleName": "memory", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/observer-service.js": {
-   "moduleName": "observer-service", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "./xpcom": {
-     "uri": "resource://api-utils-lib/xpcom.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/plain-text-console.js": {
-   "moduleName": "plain-text-console", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./traceback": {
-     "uri": "resource://api-utils-lib/traceback.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/securable-module.js": {
-   "moduleName": "securable-module", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./self-maker": {
-     "uri": "resource://api-utils-lib/self-maker.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/self-maker.js": {
-   "moduleName": "self-maker", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./file": {
-     "uri": "resource://api-utils-lib/file.js"
-    }, 
-    "./url": {
-     "uri": "resource://api-utils-lib/url.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/shims.js": {
-   "moduleName": "shims", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/tabs/events.js": {
-   "moduleName": "tabs/events", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/tabs/observer.js": {
-   "moduleName": "tabs/observer", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../events/assembler": {
-     "uri": "resource://api-utils-lib/events/assembler.js"
-    }, 
-    "../light-traits": {
-     "uri": "resource://api-utils-lib/light-traits.js"
-    }, 
-    "../window-utils": {
-     "uri": "resource://api-utils-lib/window-utils.js"
-    }, 
-    "../windows/observer": {
-     "uri": "resource://api-utils-lib/windows/observer.js"
-    }, 
-    "./utils": {
-     "uri": "resource://api-utils-lib/tabs/utils.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/tabs/tab.js": {
-   "moduleName": "tabs/tab", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../api-utils": {
-     "uri": "resource://api-utils-lib/api-utils.js"
-    }, 
-    "../content/worker": {
-     "uri": "resource://api-utils-lib/content/worker.js"
-    }, 
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }, 
-    "../utils/data": {
-     "uri": "resource://api-utils-lib/utils/data.js"
-    }, 
-    "../utils/function": {
-     "uri": "resource://api-utils-lib/utils/function.js"
-    }, 
-    "../utils/thumbnail": {
-     "uri": "resource://api-utils-lib/utils/thumbnail.js"
-    }, 
-    "./events": {
-     "uri": "resource://api-utils-lib/tabs/events.js"
-    }, 
-    "addon-kit/windows": {
-     "uri": "resource://addon-kit-lib/windows.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/tabs/utils.js": {
-   "moduleName": "tabs/utils", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/text-streams.js": {
-   "moduleName": "text-streams", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/timer.js": {
-   "moduleName": "timer", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "./xpcom": {
-     "uri": "resource://api-utils-lib/xpcom.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/traceback.js": {
-   "moduleName": "traceback", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./url": {
-     "uri": "resource://api-utils-lib/url.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/traits.js": {
-   "moduleName": "traits", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./traits/core": {
-     "uri": "resource://api-utils-lib/traits/core.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/traits/core.js": {
-   "moduleName": "traits/core", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/unload.js": {
-   "moduleName": "unload", 
-   "packageName": "api-utils", 
-   "requirements": {}, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/url.js": {
-   "moduleName": "url", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./api-utils": {
-     "uri": "resource://api-utils-lib/api-utils.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/utils/data.js": {
-   "moduleName": "utils/data", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/utils/function.js": {
-   "moduleName": "utils/function", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../timer": {
-     "uri": "resource://api-utils-lib/timer.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/utils/registry.js": {
-   "moduleName": "utils/registry", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/utils/thumbnail.js": {
-   "moduleName": "utils/thumbnail", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/window-utils.js": {
-   "moduleName": "window-utils", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./errors": {
-     "uri": "resource://api-utils-lib/errors.js"
-    }, 
-    "./events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "./traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }, 
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/windows/dom.js": {
-   "moduleName": "windows/dom", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/windows/loader.js": {
-   "moduleName": "windows/loader", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../timer": {
-     "uri": "resource://api-utils-lib/timer.js"
-    }, 
-    "../traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/windows/observer.js": {
-   "moduleName": "windows/observer", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../events/assembler": {
-     "uri": "resource://api-utils-lib/events/assembler.js"
-    }, 
-    "../light-traits": {
-     "uri": "resource://api-utils-lib/light-traits.js"
-    }, 
-    "../window-utils": {
-     "uri": "resource://api-utils-lib/window-utils.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/windows/tabs.js": {
-   "moduleName": "windows/tabs", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "../events": {
-     "uri": "resource://api-utils-lib/events.js"
-    }, 
-    "../list": {
-     "uri": "resource://api-utils-lib/list.js"
-    }, 
-    "../tabs/events": {
-     "uri": "resource://api-utils-lib/tabs/events.js"
-    }, 
-    "../tabs/observer": {
-     "uri": "resource://api-utils-lib/tabs/observer.js"
-    }, 
-    "../tabs/tab": {
-     "uri": "resource://api-utils-lib/tabs/tab.js"
-    }, 
-    "../tabs/utils": {
-     "uri": "resource://api-utils-lib/tabs/utils.js"
-    }, 
-    "../traits": {
-     "uri": "resource://api-utils-lib/traits.js"
-    }
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/xpcom.js": {
-   "moduleName": "xpcom", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "./unload": {
-     "uri": "resource://api-utils-lib/unload.js"
-    }, 
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://api-utils-lib/xul-app.js": {
-   "moduleName": "xul-app", 
-   "packageName": "api-utils", 
-   "requirements": {
-    "chrome": {}
-   }, 
-   "sectionName": "lib"
-  }, 
-  "resource://cage-lib/main.js": {
-   "moduleName": "main", 
-   "packageName": "cage-castle-age-game-enhancer", 
-   "requirements": {
-    "page-mod": {
-     "uri": "resource://addon-kit-lib/page-mod.js"
-    }, 
-    "self": {
-     "dataURIPrefix": "resource://cage-data/", 
-     "mapName": "cage-data"
-    }
-   }, 
-   "sectionName": "lib"
-  }
- }, 
- "metadata": {
-  "addon-kit": {
-   "author": "Atul Varma (http://toolness.com/) <atul@mozilla.com>", 
-   "contributors": [
-    "Myk Melez (http://melez.com/) <myk@mozilla.org>", 
-    "Daniel Aquino <mr.danielaquino@gmail.com>"
-   ], 
-   "description": "Add-on development made easy.", 
-   "keywords": [
-    "javascript", 
-    "engine", 
-    "platform", 
-    "xulrunner"
-   ], 
-   "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
-   "name": "addon-kit", 
-   "version": "1.2.1"
-  }, 
-  "api-utils": {
-   "author": "Atul Varma (http://toolness.com/) <atul@mozilla.com>", 
-   "contributors": [
-    "Myk Melez (http://melez.com/) <myk@mozilla.org>", 
-    "Daniel Aquino <mr.danielaquino@gmail.com>"
-   ], 
-   "description": "Foundational infrastructure and utilities.", 
-   "keywords": [
-    "javascript", 
-    "engine", 
-    "platform", 
-    "xulrunner", 
-    "jetpack-low-level"
-   ], 
-   "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
-   "name": "api-utils", 
-   "version": "1.2.1"
-  }, 
-  "cage-castle-age-game-enhancer": {
-   "author": "CAGEnhancer", 
-   "description": "CAGE makes playing Castle Age on Facebook a bit easier and a lot more fun )", 
-   "main": "main", 
-   "name": "cage-castle-age-game-enhancer", 
-   "version": "1.1.5"
-  }
- }, 
- "name": "cage-castle-age-game-enhancer", 
- "packageData": {
-  "addon-kit": "resource://addon-kit-data/", 
-  "api-utils": "resource://api-utils-data/", 
-  "cage-castle-age-game-enhancer": "resource://cage-data/"
- }, 
- "resourcePackages": {
-  "addon-kit-data": "addon-kit", 
-  "addon-kit-lib": "addon-kit", 
-  "api-utils-data": "api-utils", 
-  "api-utils-lib": "api-utils", 
-  "cage-data": "cage-castle-age-game-enhancer", 
-  "cage-lib": "cage-castle-age-game-enhancer"
- }, 
- "resources": {
-  "addon-kit-data": [
-   "resources", 
-   "addon-kit-data"
-  ], 
-  "addon-kit-lib": [
-   "resources", 
-   "addon-kit-lib"
-  ], 
-  "api-utils-data": [
-   "resources", 
-   "api-utils-data"
-  ], 
-  "api-utils-lib": [
-   "resources", 
-   "api-utils-lib"
-  ], 
-  "cage-data": [
-   "resources", 
-   "cage-data"
-  ], 
-  "cage-lib": [
-   "resources", 
-   "cage-lib"
-  ]
- }, 
- "rootPaths": [
-  "resource://cage-lib/", 
-  "resource://api-utils-lib/", 
-  "resource://addon-kit-lib/"
- ], 
- "sdkVersion": "1.2.1", 
- "staticArgs": {}, 
- "uriPrefix": "resource://", 
- "verbose": false
+	"bootstrap": {
+		"classID": "{ba0ddf84-9cde-47d0-9e23-938d9ff266d0}",
+		"contractID": "@mozilla.org/harness-service;1?id=CAGE@Firefox"
+	},
+	"bundleID": "CAGE@Firefox",
+	"enable_e10s": false,
+	"jetpackID": "CAGE@Firefox",
+	"loader": "resource://api-utils-lib/cuddlefish.js",
+	"main": "main",
+	"manifest": {
+		"resource://addon-kit-lib/page-mod.js": {
+			"moduleName": "page-mod",
+			"packageName": "addon-kit",
+			"requirements": {
+				"api-utils/content": {
+					"uri": "resource://api-utils-lib/content.js"
+				},
+				"api-utils/events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"api-utils/list": {
+					"uri": "resource://api-utils-lib/list.js"
+				},
+				"api-utils/match-pattern": {
+					"uri": "resource://api-utils-lib/match-pattern.js"
+				},
+				"api-utils/observer-service": {
+					"uri": "resource://api-utils-lib/observer-service.js"
+				},
+				"api-utils/utils/registry": {
+					"uri": "resource://api-utils-lib/utils/registry.js"
+				},
+				"api-utils/xul-app": {
+					"uri": "resource://api-utils-lib/xul-app.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://addon-kit-lib/windows.js": {
+			"moduleName": "windows",
+			"packageName": "addon-kit",
+			"requirements": {
+				"api-utils/api-utils": {
+					"uri": "resource://api-utils-lib/api-utils.js"
+				},
+				"api-utils/events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"api-utils/list": {
+					"uri": "resource://api-utils-lib/list.js"
+				},
+				"api-utils/tabs/tab": {
+					"uri": "resource://api-utils-lib/tabs/tab.js"
+				},
+				"api-utils/traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				},
+				"api-utils/unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"api-utils/window-utils": {
+					"uri": "resource://api-utils-lib/window-utils.js"
+				},
+				"api-utils/windows/dom": {
+					"uri": "resource://api-utils-lib/windows/dom.js"
+				},
+				"api-utils/windows/loader": {
+					"uri": "resource://api-utils-lib/windows/loader.js"
+				},
+				"api-utils/windows/tabs": {
+					"uri": "resource://api-utils-lib/windows/tabs.js"
+				},
+				"api-utils/xpcom": {
+					"uri": "resource://api-utils-lib/xpcom.js"
+				},
+				"api-utils/xul-app": {
+					"uri": "resource://api-utils-lib/xul-app.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/api-utils.js": {
+			"moduleName": "api-utils",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/byte-streams.js": {
+			"moduleName": "byte-streams",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/collection.js": {
+			"moduleName": "collection",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/content.js": {
+			"moduleName": "content",
+			"packageName": "api-utils",
+			"requirements": {
+				"./content/loader": {
+					"uri": "resource://api-utils-lib/content/loader.js"
+				},
+				"./content/symbiont": {
+					"uri": "resource://api-utils-lib/content/symbiont.js"
+				},
+				"./content/worker": {
+					"uri": "resource://api-utils-lib/content/worker.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/content/content-proxy.js": {
+			"moduleName": "content/content-proxy",
+			"packageName": "api-utils",
+			"requirements": {
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/content/loader.js": {
+			"moduleName": "content/loader",
+			"packageName": "api-utils",
+			"requirements": {
+				"../api-utils": {
+					"uri": "resource://api-utils-lib/api-utils.js"
+				},
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../file": {
+					"uri": "resource://api-utils-lib/file.js"
+				},
+				"../url": {
+					"uri": "resource://api-utils-lib/url.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/content/symbiont.js": {
+			"moduleName": "content/symbiont",
+			"packageName": "api-utils",
+			"requirements": {
+				"../hidden-frame": {
+					"uri": "resource://api-utils-lib/hidden-frame.js"
+				},
+				"../observer-service": {
+					"uri": "resource://api-utils-lib/observer-service.js"
+				},
+				"../unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"./loader": {
+					"uri": "resource://api-utils-lib/content/loader.js"
+				},
+				"./worker": {
+					"uri": "resource://api-utils-lib/content/worker.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/content/worker.js": {
+			"moduleName": "content/worker",
+			"packageName": "api-utils",
+			"requirements": {
+				"../cortex": {
+					"uri": "resource://api-utils-lib/cortex.js"
+				},
+				"../cuddlefish": {
+					"uri": "resource://api-utils-lib/cuddlefish.js"
+				},
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../file": {
+					"uri": "resource://api-utils-lib/file.js"
+				},
+				"../observer-service": {
+					"uri": "resource://api-utils-lib/observer-service.js"
+				},
+				"../tabs/tab": {
+					"uri": "resource://api-utils-lib/tabs/tab.js"
+				},
+				"../timer": {
+					"uri": "resource://api-utils-lib/timer.js"
+				},
+				"../traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				},
+				"../unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"../url": {
+					"uri": "resource://api-utils-lib/url.js"
+				},
+				"../utils/function": {
+					"uri": "resource://api-utils-lib/utils/function.js"
+				},
+				"./content-proxy": {
+					"uri": "resource://api-utils-lib/content/content-proxy.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/cortex.js": {
+			"moduleName": "cortex",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/cuddlefish.js": {
+			"moduleName": "cuddlefish",
+			"packageName": "api-utils",
+			"requirements": {
+				"api-utils/memory": {
+					"uri": "resource://api-utils-lib/memory.js"
+				},
+				"api-utils/plain-text-console": {
+					"uri": "resource://api-utils-lib/plain-text-console.js"
+				},
+				"api-utils/securable-module": {
+					"uri": "resource://api-utils-lib/securable-module.js"
+				},
+				"api-utils/shims": {
+					"uri": "resource://api-utils-lib/shims.js"
+				},
+				"api-utils/unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/dom/events.js": {
+			"moduleName": "dom/events",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/errors.js": {
+			"moduleName": "errors",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/events.js": {
+			"moduleName": "events",
+			"packageName": "api-utils",
+			"requirements": {
+				"./light-traits": {
+					"uri": "resource://api-utils-lib/light-traits.js"
+				},
+				"./traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/events/assembler.js": {
+			"moduleName": "events/assembler",
+			"packageName": "api-utils",
+			"requirements": {
+				"../dom/events": {
+					"uri": "resource://api-utils-lib/dom/events.js"
+				},
+				"../light-traits": {
+					"uri": "resource://api-utils-lib/light-traits.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/file.js": {
+			"moduleName": "file",
+			"packageName": "api-utils",
+			"requirements": {
+				"./byte-streams": {
+					"uri": "resource://api-utils-lib/byte-streams.js"
+				},
+				"./text-streams": {
+					"uri": "resource://api-utils-lib/text-streams.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/hidden-frame.js": {
+			"moduleName": "hidden-frame",
+			"packageName": "api-utils",
+			"requirements": {
+				"./api-utils": {
+					"uri": "resource://api-utils-lib/api-utils.js"
+				},
+				"./collection": {
+					"uri": "resource://api-utils-lib/collection.js"
+				},
+				"./errors": {
+					"uri": "resource://api-utils-lib/errors.js"
+				},
+				"./timer": {
+					"uri": "resource://api-utils-lib/timer.js"
+				},
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"./xul-app": {
+					"uri": "resource://api-utils-lib/xul-app.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/light-traits.js": {
+			"moduleName": "light-traits",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/list.js": {
+			"moduleName": "list",
+			"packageName": "api-utils",
+			"requirements": {
+				"./traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/match-pattern.js": {
+			"moduleName": "match-pattern",
+			"packageName": "api-utils",
+			"requirements": {
+				"./url": {
+					"uri": "resource://api-utils-lib/url.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/memory.js": {
+			"moduleName": "memory",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/observer-service.js": {
+			"moduleName": "observer-service",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"./xpcom": {
+					"uri": "resource://api-utils-lib/xpcom.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/plain-text-console.js": {
+			"moduleName": "plain-text-console",
+			"packageName": "api-utils",
+			"requirements": {
+				"./traceback": {
+					"uri": "resource://api-utils-lib/traceback.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/securable-module.js": {
+			"moduleName": "securable-module",
+			"packageName": "api-utils",
+			"requirements": {
+				"./self-maker": {
+					"uri": "resource://api-utils-lib/self-maker.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/self-maker.js": {
+			"moduleName": "self-maker",
+			"packageName": "api-utils",
+			"requirements": {
+				"./file": {
+					"uri": "resource://api-utils-lib/file.js"
+				},
+				"./url": {
+					"uri": "resource://api-utils-lib/url.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/shims.js": {
+			"moduleName": "shims",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/tabs/events.js": {
+			"moduleName": "tabs/events",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/tabs/observer.js": {
+			"moduleName": "tabs/observer",
+			"packageName": "api-utils",
+			"requirements": {
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../events/assembler": {
+					"uri": "resource://api-utils-lib/events/assembler.js"
+				},
+				"../light-traits": {
+					"uri": "resource://api-utils-lib/light-traits.js"
+				},
+				"../window-utils": {
+					"uri": "resource://api-utils-lib/window-utils.js"
+				},
+				"../windows/observer": {
+					"uri": "resource://api-utils-lib/windows/observer.js"
+				},
+				"./utils": {
+					"uri": "resource://api-utils-lib/tabs/utils.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/tabs/tab.js": {
+			"moduleName": "tabs/tab",
+			"packageName": "api-utils",
+			"requirements": {
+				"../api-utils": {
+					"uri": "resource://api-utils-lib/api-utils.js"
+				},
+				"../content/worker": {
+					"uri": "resource://api-utils-lib/content/worker.js"
+				},
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				},
+				"../utils/data": {
+					"uri": "resource://api-utils-lib/utils/data.js"
+				},
+				"../utils/function": {
+					"uri": "resource://api-utils-lib/utils/function.js"
+				},
+				"../utils/thumbnail": {
+					"uri": "resource://api-utils-lib/utils/thumbnail.js"
+				},
+				"./events": {
+					"uri": "resource://api-utils-lib/tabs/events.js"
+				},
+				"addon-kit/windows": {
+					"uri": "resource://addon-kit-lib/windows.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/tabs/utils.js": {
+			"moduleName": "tabs/utils",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/text-streams.js": {
+			"moduleName": "text-streams",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/timer.js": {
+			"moduleName": "timer",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"./xpcom": {
+					"uri": "resource://api-utils-lib/xpcom.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/traceback.js": {
+			"moduleName": "traceback",
+			"packageName": "api-utils",
+			"requirements": {
+				"./url": {
+					"uri": "resource://api-utils-lib/url.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/traits.js": {
+			"moduleName": "traits",
+			"packageName": "api-utils",
+			"requirements": {
+				"./traits/core": {
+					"uri": "resource://api-utils-lib/traits/core.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/traits/core.js": {
+			"moduleName": "traits/core",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/unload.js": {
+			"moduleName": "unload",
+			"packageName": "api-utils",
+			"requirements": {},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/url.js": {
+			"moduleName": "url",
+			"packageName": "api-utils",
+			"requirements": {
+				"./api-utils": {
+					"uri": "resource://api-utils-lib/api-utils.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/utils/data.js": {
+			"moduleName": "utils/data",
+			"packageName": "api-utils",
+			"requirements": {
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/utils/function.js": {
+			"moduleName": "utils/function",
+			"packageName": "api-utils",
+			"requirements": {
+				"../timer": {
+					"uri": "resource://api-utils-lib/timer.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/utils/registry.js": {
+			"moduleName": "utils/registry",
+			"packageName": "api-utils",
+			"requirements": {
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/utils/thumbnail.js": {
+			"moduleName": "utils/thumbnail",
+			"packageName": "api-utils",
+			"requirements": {
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/window-utils.js": {
+			"moduleName": "window-utils",
+			"packageName": "api-utils",
+			"requirements": {
+				"./errors": {
+					"uri": "resource://api-utils-lib/errors.js"
+				},
+				"./events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"./traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				},
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/windows/dom.js": {
+			"moduleName": "windows/dom",
+			"packageName": "api-utils",
+			"requirements": {
+				"../traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/windows/loader.js": {
+			"moduleName": "windows/loader",
+			"packageName": "api-utils",
+			"requirements": {
+				"../timer": {
+					"uri": "resource://api-utils-lib/timer.js"
+				},
+				"../traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/windows/observer.js": {
+			"moduleName": "windows/observer",
+			"packageName": "api-utils",
+			"requirements": {
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../events/assembler": {
+					"uri": "resource://api-utils-lib/events/assembler.js"
+				},
+				"../light-traits": {
+					"uri": "resource://api-utils-lib/light-traits.js"
+				},
+				"../window-utils": {
+					"uri": "resource://api-utils-lib/window-utils.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/windows/tabs.js": {
+			"moduleName": "windows/tabs",
+			"packageName": "api-utils",
+			"requirements": {
+				"../events": {
+					"uri": "resource://api-utils-lib/events.js"
+				},
+				"../list": {
+					"uri": "resource://api-utils-lib/list.js"
+				},
+				"../tabs/events": {
+					"uri": "resource://api-utils-lib/tabs/events.js"
+				},
+				"../tabs/observer": {
+					"uri": "resource://api-utils-lib/tabs/observer.js"
+				},
+				"../tabs/tab": {
+					"uri": "resource://api-utils-lib/tabs/tab.js"
+				},
+				"../tabs/utils": {
+					"uri": "resource://api-utils-lib/tabs/utils.js"
+				},
+				"../traits": {
+					"uri": "resource://api-utils-lib/traits.js"
+				}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/xpcom.js": {
+			"moduleName": "xpcom",
+			"packageName": "api-utils",
+			"requirements": {
+				"./unload": {
+					"uri": "resource://api-utils-lib/unload.js"
+				},
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://api-utils-lib/xul-app.js": {
+			"moduleName": "xul-app",
+			"packageName": "api-utils",
+			"requirements": {
+				"chrome": {}
+			},
+			"sectionName": "lib"
+		},
+		"resource://cage-lib/main.js": {
+			"moduleName": "main",
+			"packageName": "cage-castle-age-game-enhancer",
+			"requirements": {
+				"page-mod": {
+					"uri": "resource://addon-kit-lib/page-mod.js"
+				},
+				"self": {
+					"dataURIPrefix": "resource://cage-data/",
+					"mapName": "cage-data"
+				}
+			},
+			"sectionName": "lib"
+		}
+	},
+	"metadata": {
+		"addon-kit": {
+			"author": "Atul Varma (http://toolness.com/) <atul@mozilla.com>",
+			"contributors": ["Myk Melez (http://melez.com/) <myk@mozilla.org>", "Daniel Aquino <mr.danielaquino@gmail.com>"],
+			"description": "Add-on development made easy.",
+			"keywords": ["javascript", "engine", "platform", "xulrunner"],
+			"license": "MPL 1.1/GPL 2.0/LGPL 2.1",
+			"name": "addon-kit",
+			"version": "1.2.1"
+		},
+		"api-utils": {
+			"author": "Atul Varma (http://toolness.com/) <atul@mozilla.com>",
+			"contributors": ["Myk Melez (http://melez.com/) <myk@mozilla.org>", "Daniel Aquino <mr.danielaquino@gmail.com>"],
+			"description": "Foundational infrastructure and utilities.",
+			"keywords": ["javascript", "engine", "platform", "xulrunner", "jetpack-low-level"],
+			"license": "MPL 1.1/GPL 2.0/LGPL 2.1",
+			"name": "api-utils",
+			"version": "1.2.1"
+		},
+		"cage-castle-age-game-enhancer": {
+			"author": "CAGEnhancer",
+			"description": "CAGE makes playing Castle Age on Facebook a bit easier and a lot more fun )",
+			"main": "main",
+			"name": "cage-castle-age-game-enhancer",
+			"version": "1.1.5"
+		}
+	},
+	"name": "cage-castle-age-game-enhancer",
+	"packageData": {
+		"addon-kit": "resource://addon-kit-data/",
+		"api-utils": "resource://api-utils-data/",
+		"cage-castle-age-game-enhancer": "resource://cage-data/"
+	},
+	"resourcePackages": {
+		"addon-kit-data": "addon-kit",
+		"addon-kit-lib": "addon-kit",
+		"api-utils-data": "api-utils",
+		"api-utils-lib": "api-utils",
+		"cage-data": "cage-castle-age-game-enhancer",
+		"cage-lib": "cage-castle-age-game-enhancer"
+	},
+	"resources": {
+		"addon-kit-data": ["resources", "addon-kit-data"],
+		"addon-kit-lib": ["resources", "addon-kit-lib"],
+		"api-utils-data": ["resources", "api-utils-data"],
+		"api-utils-lib": ["resources", "api-utils-lib"],
+		"cage-data": ["resources", "cage-data"],
+		"cage-lib": ["resources", "cage-lib"]
+	},
+	"rootPaths": ["resource://cage-lib/", "resource://api-utils-lib/", "resource://addon-kit-lib/"],
+	"sdkVersion": "1.2.1",
+	"staticArgs": {},
+	"uriPrefix": "resource://",
+	"verbose": false
 }

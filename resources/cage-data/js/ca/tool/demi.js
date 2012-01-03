@@ -65,10 +65,16 @@ tools.Demi.timer = function() {
 		var _hr = Math.floor(_sec / 3600);
 		if(_hr < 0 || _min < 0) {
 			$('#cageNextDemi span:last').text('Now');
-			$('#cageNextDemi > div > div').css('width', '100%');
+			$('#cageNextDemi > div > div').css({
+				'width' : '100%',
+				'backgroundColor' : '#c00'
+			});
 		} else {
 			$('#cageNextDemi span:last').text(_hr + ':' + ('0' + _min).slice(-2));
-			$('#cageNextDemi > div > div').css('width', (100 - (_hr * 60 + _min) * 100 / (_wait * 60)) + '%');
+			$('#cageNextDemi > div > div').css({
+				'width' : (100 - (_hr * 60 + _min) * 100 / (_wait * 60)) + '%',
+				'backgroundColor' : '#1A7A30'
+			});
 		}
 	}
 };
@@ -77,7 +83,7 @@ tools.Demi.done = function() {
 };
 tools.Demi.init = function() {
 	$('#cageContainer').append('<div id="cageDemiContainer" class="ui-corner-bottom ui-widget-content"></div>');
-	$('#cageStatsContainer').append('<div id="cageNextDemi"><div><div></div></div><span>Next Demi:</span><span></span></div>');
+	$('#cageStatsContainer').append('<div id="cageNextDemi"><div><div></div></div><span>Demi:</span><span></span></div>');
 	tools.Demi.fbButton.add(language.demiButton, function() {
 		tools.Demi.fbButton.disable();
 		tools.Demi.start();
