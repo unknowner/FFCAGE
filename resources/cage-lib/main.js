@@ -121,6 +121,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/tool/generals.js"),
 			data.url("js/ca/tool/gifter.js"),
 			data.url("js/ca/tool/heal.js"),
+			data.url("js/ca/tool/monster.js"),
 			data.url("js/ca/tool/page.js"),
 			data.url("js/ca/tool/potionEnergy.js"),
 			data.url("js/ca/tool/potionStamina.js"),
@@ -150,6 +151,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/page/battle_expansion_monster.js"),
 			data.url("js/ca/page/guildv2_battle_monster.js"),
 			data.url("js/ca/page/treasure_chest.js"),
+			data.url("js/ca/page/alchemy.js"),
 			
 			data.url("js/castleage.js")
 		],
