@@ -1,1 +1,1 @@
-window['cageFFVersion'] = "1.1.6β"
+window['cageFFVersion'] = "1.1.7b"

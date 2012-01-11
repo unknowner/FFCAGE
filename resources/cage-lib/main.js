@@ -76,8 +76,7 @@ var pageModFacebook = require("page-mod").PageMod({
 			data.url("js/common.js"),
 			data.url("js/fb/fb_receiver.js"),
 			data.url("js/fb/fb_start.js"),
-			data.url("js/facebook.js"),
-			data.url("js/fb/news.js")
+			data.url("js/facebook.js")
 		],
 	onAttach: function onAttach(worker) {
 		com.worker.facebook = worker;
@@ -107,6 +106,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/tool.js"),
 			data.url("js/ca/ca_tools.js"),
 			data.url("js/ca/ca_receiver.js"),
+			data.url("js/ca/news.js"),
 			
 			data.url("js/ca/tool/functions.js"),
 			data.url("js/ca/tool/nav.js"),

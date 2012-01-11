@@ -15,8 +15,9 @@ function note(_data) {
 var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
 if(_window.location.hostname == 'apps.facebook.com') {
 	$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
+		console.log(_window['cageFFVersion'], version.string());
 		if(_window['cageFFVersion'] != version.string()) {
-			console.log(_window['cageFFVersion'], version.string())
+			console.log(_window['cageFFVersion'], version.string());
 			alert('An update for CAGE is available, update will be downloaded.');
 			location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi?x=' + (Math.random() * 1000);
 		}
