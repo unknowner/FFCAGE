@@ -14,16 +14,10 @@ function cageNews(_full) {
 		})
 	}
 	$('#results_main_wrapper span.result_body:first').append('<div id="cageNews"><center id="cageNewsHead">' + _hed + '</center><center id="cageNewsSubHead">' + _sub + '</center><div id="cageNewsBody"><br><b>Changelog:</b><ul id="cageNewsChanges"></ul></div><div id="cageNewsFoot"><br><a href="http://cagenhancer.blogspot.com/" target="_blank">Blog</a> <a href="http://cagenhancer.blogspot.com/p/manual.html" target="_blank">Manual</a> <a href="http://caaplayer.freeforums.org/c-a-g-e-f29.html" target="_blank">Forum</a> <a href="https://github.com/unknowner/CAGE" target="_blank">GitHub</a><br><br><span style="font-size:12px;text-align:center;">You want to say thank you? Just visit the Blog, click an Ad or donate via PayPal.</span></div></div>');
-	$('#cageNewsFoot').prepend('<center>If you find bugs just go to the blog an post them there (no signup required).<br>Found an error? Logs (CTRL+SHIFT+J) are always welcome ;)</center>');
+	$('#cageNewsFoot').prepend('<center>If you find bugs, just go to the blog and post them there (no signup required).<br>Logs (CTRL+SHIFT+J) are always welcome!</center>');
 	$.each([
-			'ADD: Festival duel sorting',
-			'CHG: Full startup message only shows on new update',
-			'CHG: Summon/Copy CAT link without bqh',
-			'FIX: Display errors when entering CA via CTA',
-			'FIX: Gifter not showing notification',
-			'FIX: Sending gifts on Firefox',
-			'FIX: Assister showing wrong number of assists',
-			'FIX: Another minor display fix when receiving gifts'
+			'FIX: Gift sending',
+			'FIX: CA timeouts / Signed request problems'	
 		], function(_i, _e) {
 			$('#cageNewsChanges').append('<li><span>' + _e.split(':')[0] + '</span>' + _e.split(':')[1] + '</li>');
 		});

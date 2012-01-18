@@ -71,7 +71,6 @@ var pageModFacebook = require("page-mod").PageMod({
 	contentScriptFile : [
 			data.url("js/version.js"),
 			data.url("js/jquery.js"),
-			data.url("js/jqueryui.js"),
 			data.url("js/firefox.js"),
 			data.url("js/common.js"),
 			data.url("js/fb/fb_receiver.js"),
@@ -109,6 +108,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/news.js"),
 			
 			data.url("js/ca/tool/functions.js"),
+			data.url("js/ca/tool/facebook.js"),
 			data.url("js/ca/tool/nav.js"),
 			data.url("js/ca/tool/cage.js"),
 			data.url("js/ca/tool/settings.js"),
@@ -118,6 +118,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/tool/assister.js"),
 			data.url("js/ca/tool/demi.js"),
 			data.url("js/ca/tool/eliteguard.js"),
+			data.url("js/ca/tool/facebook.js"),
 			data.url("js/ca/tool/generals.js"),
 			data.url("js/ca/tool/gifter.js"),
 			data.url("js/ca/tool/heal.js"),
@@ -152,6 +153,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/page/guildv2_battle_monster.js"),
 			data.url("js/ca/page/treasure_chest.js"),
 			data.url("js/ca/page/alchemy.js"),
+			data.url("js/ca/page/festival_duel_battle.js"),
 			
 			data.url("js/castleage.js")
 		],
