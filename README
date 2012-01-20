@@ -1,4 +1,19 @@
 ==================================================================
+VER: 1.1.11β
+------------------------------------------------------------------
+	FIX: Assister
+	FIX: Some guild battle stuff
+	FIX: Broken page when using Goblin Emporium
+	FIX: Exp to next level
+	FIX: Possible fix for FF start problems
+	
+==================================================================
+VER: 1.1.10β
+------------------------------------------------------------------
+	FIX: Gift sending 
+	FIX: CA timeouts / Signed request problems
+	
+==================================================================
 VER: 1.1.9β
 ------------------------------------------------------------------
 	ADD: Assist for friend list

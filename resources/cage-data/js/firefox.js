@@ -18,8 +18,9 @@ if(_window.location.hostname == 'apps.facebook.com') {
 		console.log(_window['cageFFVersion'], version.string());
 		if(_window['cageFFVersion'] != version.string()) {
 			console.log(_window['cageFFVersion'], version.string());
-			alert('An update for CAGE is available, update will be downloaded.');
-			location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE.xpi?x=' + (Math.random() * 1000);
+			if(confirm('You can now update CAGE to version ' + version.string()) == true) {
+				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE' + version.file() + '.xpi?x=' + (Math.random() * 1000);
+			}
 		}
 	});
 }
