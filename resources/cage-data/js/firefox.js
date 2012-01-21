@@ -15,11 +15,10 @@ function note(_data) {
 var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
 if(_window.location.hostname == 'apps.facebook.com') {
 	$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-		console.log(_window['cageFFVersion'], version.string());
+		console.log('github: ', _window['cageFFVersion'], ' - local: ', version.string());
 		if(_window['cageFFVersion'] != version.string()) {
-			console.log(_window['cageFFVersion'], version.string());
-			if(confirm('You can now update CAGE to version ' + version.string()) == true) {
-				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE' + version.file() + '.xpi?x=' + (Math.random() * 1000);
+			if(confirm('You can now update CAGE to version ' + _window['cageFFVersion']) == true) {
+				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE' + _window['cageFFVersion'].replace('.', '_') + '.xpi?x=' + (Math.random() * 1000);
 			}
 		}
 	});

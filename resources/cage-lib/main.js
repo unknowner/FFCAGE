@@ -155,6 +155,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/page/alchemy.js"),
 			data.url("js/ca/page/festival_duel_battle.js"),
 			data.url("js/ca/page/goblin_emp.js"),
+			data.url("js/ca/page/symbols.js"),
 			
 			data.url("js/castleage.js")
 		],
