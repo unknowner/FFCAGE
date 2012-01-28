@@ -31,7 +31,7 @@ tools.General.get = function() {
 tools.General.set = function() {
 	var _g = tools.General.runtime.general[tools.General.current];
 	$('#cageGeneralImage').attr('src', _g.image).css({
-		'height' : 92,
+		'height' : 93,
 		'padding' : 0
 	});
 	$('#cageGeneralName').text(_g.name);
@@ -65,7 +65,7 @@ tools.General.update = function() {
 			tools.General.parsePage(_data);
 		})
 	} else {
-		window.setTimeout(tools.General.update, 50);
+		window.setTimeout(tools.General.update, 200);
 	}
 };
 tools.General.parsePage = function(_data) {

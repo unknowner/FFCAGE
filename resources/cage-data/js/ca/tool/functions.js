@@ -27,18 +27,23 @@ tools.Functions.cageRePos = function() {
 	window['cageRePos'] = function(fb_js_var, top) {
 		$('#single_popup_background').css('opacity', 0).removeClass('connect_castlepb_bg').fadeTo('slow', 0.75);
 		var _sp = $('#single_popup');
-		_sp.html($('#' + fb_js_var).html());
+		if(fb_js_var.indexOf('<div') !== -1) {
+			_sp.html(fb_js_var);
+		} else {
+			_sp.html($('#' + fb_js_var).html());
+		}
 		_sp.find('>div:first').css({
 			'margin' : 0,
 			'padding' : 0
 		});
-		var _width = (770 - _sp.width()) / 2;
+		var _width = _sp.width() == 0 ? _sp.find('>div:first').width() : _sp.width();
+		var _margin = (770 - _width) / 2;
+		console.log(_width);
 		if(top) {
 			_sp.css('top', top);
 		}
 		_sp.css({
-			'marginLeft' : (_width),
-			'width' : _sp.width(),
+			'marginLeft' : (_margin),
 			'opacity' : 0
 		}).fadeTo('slow', 1);
 		$(document).keypress(function(_key) {
@@ -81,7 +86,7 @@ tools.Functions.hideFeedbackPositionBox = function() {
 		$('#single_popup_background_feedback').fadeOut('slow', function() {
 			$(this).hide().css('opacity', 1).unbind('keypress');
 		});
-		$('#single_popup_feedback').fadeOut('slow', function() {
+		$('#single_popup_feedback').fadeOut('fast', function() {
 			$(this).hide().css('opacity', 1).unbind('keypress');
 		});
 	};
@@ -92,7 +97,7 @@ tools.Functions.hidePositionBox = function() {
 		$('#single_popup_background').fadeOut('slow', function() {
 			$(this).hide().css('opacity', 1);
 		});
-		$('#single_popup').fadeOut('slow', function() {
+		$('#single_popup').fadeOut('fast', function() {
 			$(this).hide().css('opacity', 1);
 		});
 	};
