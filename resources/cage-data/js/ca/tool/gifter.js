@@ -47,7 +47,7 @@ tools.Gifter.update = function() {
 			if(_received == 0) {
 				note('Gifter', 'No gifts to accept.');
 			} else {
-				note('Gifter', 'You accepted ' + tools.Gifter.runtime.requests.length + ' gift(s).');
+				note('Gifter', 'You accepted ' + _received + ' gift(s).');
 			}
 			item.set('CAGEsendGiftTo', tools.Gifter.runtime.sendGiftTo);
 			tools.Gifter.runtimeUpdate();
