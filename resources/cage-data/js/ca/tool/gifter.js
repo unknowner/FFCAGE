@@ -156,7 +156,7 @@ tools.Gifter.newRequestForm = function() {
 							_friends[_e.id] = _e.name;
 						});
 						$.each(result.to, function(_i, _e) {
-							_requestids.push(result.request + '_' + _e);
+							//_requestids.push(result.request + '_' + _e);
 							var _fr = '';
 							if(_store !== null && _store.indexOf(_e) > -1) {
 								_store.splice(_store.indexOf(_e), 1);
@@ -171,7 +171,7 @@ tools.Gifter.newRequestForm = function() {
 							_resultContainer.append('<br>...' + _friends[_e] + ' (' + _e + ')' + _fr);
 						});
 						var params = 'ajax=1&signed_request=' + $('#signed_request').val();
-						console.log(_requestids);
+						//console.log(_requestids);
 						$.ajax({
 							url : 'request_handler.php?' + request_params + '&request_ids=' + result.to.join(','), // _requestids.join(',')
 							context : document.body,
