@@ -1,4 +1,39 @@
 ==================================================================
+VER: 1.1.16β
+------------------------------------------------------------------
+	ADD: Stop messengers (open gifts/invites)
+	ADD: Army Cleaner, removes none-friends from army
+	FIX: Sometimes broken list in raids
+	FIX: Filters in festival battle
+	FIX: Stay on gate in guild/festival battles
+	CHG: Army filler reworked
+
+==================================================================
+VER: 1.1.15β
+------------------------------------------------------------------
+	FIX: Missing guild achivements in navigation
+	FIX: Activity filter in guild battles
+	CHG: Internal settings stuff
+	
+==================================================================
+VER: 1.1.14β
+------------------------------------------------------------------
+	FIX: Public monster popup
+	FIX: Festival duel sorting
+	ADD: Quick RTF gifting
+	ADD: Festival/Guild battle now saves filter settings
+	ADD: Save/load settings
+	
+==================================================================
+VER: 1.1.13β
+------------------------------------------------------------------
+	FIX: Gifter sending wrong ids
+	ADD: Save alchemy hide receipt settings
+	ADD: Save festival duel sorting settings
+	ADD: Save battle page sorting settings
+	CHG: Demi timer now works from demi tool and demi page
+	
+==================================================================
 VER: 1.1.12β
 ------------------------------------------------------------------
 	CHG: Demi timer now works from demi tool and demi page

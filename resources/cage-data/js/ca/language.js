@@ -12,9 +12,11 @@ function defaultLanguage(){
 	this.cageLoadSettings					= 'Load settings';
 	
 	//Castle Age
-	this.cAgeheadText							= 'A few settings to hide some information you don\'t care about.';
+	this.cAgeheadText							= 'Just a few settings to change some CA stuff.';
 	this.cAgeNoResults						= 'Hide battles won message';
 	this.cageNoHourly							= 'Hide hourly info messages';
+	this.cageScrollGuildChat			= 'Autoscroll guild chat';
+	
 	// Settings
 	this.settingsButton						= 'Settings';
 	
@@ -28,7 +30,7 @@ function defaultLanguage(){
 	
 	// Army Cleaner
 	this.armyCleanerSetDesc				= 'The Army Cleaner removes all army members that are no longer friend with you.'
-	this.armyCleanerSetMinArmy			= 'Minimum army members';
+	this.armyCleanerSetMinArmy		= 'Minimum army members';
 	this.armyCleanerGetArmy				= 'Getting army members...';
 	this.armyCleanerRemoveMissing	=	'Removing none-friends from army...';
 	this.armyCleanerReloading			= 'Done, reloading...';
@@ -55,7 +57,8 @@ function defaultLanguage(){
 	// Generals
 	this.generalsSetName					= 'Generals';
 	this.generalsSetFavOnlyAction	= 'Show only favourites';
-
+	this.generalsSetFixHeight			= 'Fixed height';
+	
 	// Gifter
 	this.gifterButton							= 'Receive Gifts';
 	this.gifterSetName						= 'Gifts'
