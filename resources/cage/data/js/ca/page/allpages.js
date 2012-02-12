@@ -1,0 +1,112 @@
+// All Pages
+tools.Page.runtime.allPages = function() {
+
+	//Execute add ons from tools
+	$.each(tools, function(_i, _e) {
+		if(_e.allPagesAddOn) {
+			_e.allPagesAddOn();
+		}
+	})
+	// If found update bqh
+	if($('form input[name="bqh"]:first').length > 0) {
+		CastleAge.bqh = $('form input[name="bqh"]:first').val();
+	}
+	
+	//Stats background
+	$('#main_sts').css({
+		'background' : '',
+		'backgroundImage' : $('#main_bn').css('backgroundImage')
+	});
+	
+	// remove CA:HOD ad, etc...
+	$('a[href="http://apps.facebook.com/castle_hod/?xprom=cax"]:first').parent('div:first').remove();
+	if($('#globalContainer > div:first').height() == 80) {
+		$('#globalContainer > div:first').hide();
+	}
+	$('#nvbar_div_end').remove();
+	$('#hinvite_help').remove();
+
+	// xp to next lvl
+	$('#main_ststb > div:first').css({
+		'height' : 16,
+		'marginBottom' : -2
+	});
+	$('#st_5').css('margin', '4px 0 0 10px');
+	$('div.st_row_2').css('marginTop', 2);
+	$('#st_5 div.lvlBr div').css({
+		'height' : 12,
+		'borderRadius' : 3
+	});
+
+	if($('#st_2_5 strong:contains("to")').length == 0 && /\d+\/(\d+)/.exec($('#st_2_5 strong').text()) !== null) {
+		$('#st_2_5 strong').text(/\d+/.exec($('#st_5').attr('title'))[0] + ' to ' + /\d+\/(\d+)/.exec($('#st_2_5 strong').text())[1]);
+	}
+
+	// reworkin results
+	if($('div.results').length > 0) {
+		$('div.results').attr('style', '').css({
+			'width' : 728
+		});
+		$('#results_main_wrapper').addClass('resultsmainwrapper').prepend('<img id="cageCloseResult" src="http://image4.castleagegame.com/graphics/popup_close_button.png">');
+		$('#results_main_wrapper > br').remove();
+		$('#cageCloseResult').click(function() {
+			$(this).unbind('click').css({
+				'width' : 18,
+				'top' : 2,
+				'right' : 3
+			}).attr('src', 'http://image4.castleagegame.com/graphics/shield_wait.gif');
+			$('#results_main_wrapper').slideUp('slow', function() {
+				$(this).remove();
+			});
+		});
+		// remove some stuff
+		$('span.result_body > div:last:contains("Increase quest efficiency and battle prowess by growing your army")').prev().remove().end().prev().remove().end().remove();
+		//fix some results eg out of stamina general image
+		$('span.result_body:contains("Allocate skill points to Max") img:first').css('width', 160);
+		// closing results
+		$('div.results:has(img[src$="help_close_x.gif"])').each(function(_index, _element) {
+			var $_element = $(_element);
+			var $_img = $('img[src$="help_close_x.gif"]', _element);
+			var _close = /(?:, ')(.+?close_result=.+?)(')/.exec($_img.parent('a').attr('onclick'))[1];
+			$_img.remove();
+			$('#cageCloseResult').click(function() {
+				$(this).unbind('click').css({
+					'width' : 18,
+					'top' : 2,
+					'right' : 3
+				}).attr('src', 'http://image4.castleagegame.com/graphics/shield_wait.gif');
+				$.post(_close + '&signed_request=' + CastleAge.signed_request, function() {
+					$_element.slideUp('slow', function() {
+						$_element.remove();
+						$('#results_main_wrapper').hide();
+					});
+				});
+			}).css('cursor', 'pointer');
+		});
+	} else {
+		$('#results_main_wrapper').css('border', 0);
+	}
+
+	// fix loader
+	$('#AjaxLoadIcon').removeClass('shield_wait');
+
+	// Favour points
+	$('#cageFavorPoints > span').text($('#main_bn div[style*="persistent_bar_oracle.gif"]').text().trim());
+
+	// Stat Points
+	var _sp = $('#main_bntp a:contains("My Stats")').text().match(/\d+/g);
+	if(_sp !== null) {
+		$('#cageStatPoints > span').text(_sp[0]);
+		$('#cageStatPoints > img').attr('src', 'http://image4.castleagegame.com/graphics/keep_upgrade_orange.gif');
+	} else {
+		$('#cageStatPoints > span').text('');
+		$('#cageStatPoints > img').attr('src', 'http://image4.castleagegame.com/graphics/keep_upgrade_green.gif');
+	}
+
+	// Random popups (quests etc.)
+	$('div.result_popup_message').css({
+		'left' : '',
+		'marginLeft' : 15
+	});
+
+};
