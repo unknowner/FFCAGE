@@ -109,7 +109,6 @@ var pageModCastleAge = require("page-mod").PageMod({
 			data.url("js/ca/news.js"),
 			
 			data.url("js/ca/tool/functions.js"),
-			data.url("js/ca/tool/nav.js"),
 			data.url("js/ca/tool/cage.js"),
 			data.url("js/ca/tool/castleage.js"),
 			data.url("js/ca/tool/settings.js"),

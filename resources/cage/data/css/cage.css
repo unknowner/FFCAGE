@@ -4,16 +4,18 @@
 	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
 }
 #cageToolsContainer {
+	white-space: nowrap;
 	position: fixed;
-	top: 122px;
+	top: 130px;
 	padding: 0;
 	height: 33px;
-	width: 753px;
-	margin-left: 8px;
+	width: 748px;
+	margin-left: 10px;
 	z-index: 1;
 	box-shadow: 0 10px 20px black;
 }
 #cageMenu {
+	white-space: nowrap;
 	position: fixed;
 	height: 28px;
 	z-index: 4;
@@ -31,7 +33,7 @@
 	position: relative;
 	top: -13px;
 }
-#cageMenu ul li {
+#cageMenu > ul > li {
 	display: inline-block;
 }
 #cageMenu button {
@@ -41,10 +43,11 @@
 .cageSubMenu {
 	display: none;
 	position: absolute;
-	width: 160px;
+	text-align: left;
 }
 .cageSubMenu button {
-	width: 160px;
+	width: 100%;
+	min-width: 100px;
 	text-align: left;
 	box-shadow: 0 10px 20px black;
 }
@@ -374,6 +377,9 @@
 	float: right;
 	right: 5px;
 }
+.recipetitle {
+	margin: 1px;
+}
 .alchemyRecipeBackMonster {
 	height: auto !important;
 	margin-bottom: 10px;
@@ -475,4 +481,31 @@
 }
 .cageGifterButton > span {
 	font-size: 15px;
+}
+/*
+ * Monster stats
+ */
+#cageMonsterStats {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	padding: 10px;
+	border-top-right-radius: 8px;
+	color: #fff;
+	font-size: 11px;
+	opacity: 0.75;
+}
+/*
+ * Conquest
+ */
+#cageHealthAction {
+	position: absolute;
+	background: #000;
+	padding: 5px;
+	color: #fff;
+	width: 172px;
+	text-align: center;
+	margin-top: 120px;
+	opacity: 0.75;
 }

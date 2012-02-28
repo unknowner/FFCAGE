@@ -2,9 +2,8 @@
 tools['Page'].runtime['goblin_emp.php'] = function() {
 
 	console.log('Page: goblin_emp.php');
-
 	addFunction(function() {
-		window['gob_mix'] = function() {
+		gob_mix = function() {
 			$('body').animate({
 				scrollTop : 0
 			}, 'slow');
@@ -19,24 +18,16 @@ tools['Page'].runtime['goblin_emp.php'] = function() {
 			reset_raid_lst();
 			pageCache = {};
 			ajaxPerforming = true;
-			setTimeout(function() {
-				if(ajaxPerforming)
-					$('#AjaxLoadIcon').show();
-			}, 1500);
+			$('#AjaxLoadIcon').show();
 			$.ajax({
 				url : 'goblin_emp.php',
-				context : document.body,
 				data : 'ajax=1&signed_request=' + $('#signed_request').attr('value') + '&g_item_mix=' + _items.join(','),
 				type : 'POST',
-				success : function(data) {
-					ajaxPerforming = false;
-					$('#AjaxLoadIcon').hide();
-					$('#globalContainer').html(data);
-					firePageURL();
-					centerPopups();
+				success : function(data, textStatus, jqXHR) {
+					ajaxPageDone(jqXHR.responseText, 'globalContainer');
+					jqXHR = data = undefined;
 				}
 			});
-			$('#main_anchor').focus();
 		};
 	}, null, true, true);
 };

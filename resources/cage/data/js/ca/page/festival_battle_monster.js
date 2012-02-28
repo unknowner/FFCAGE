@@ -25,21 +25,7 @@ tools['Page'].runtime['festival_battle_monster.php'] = function() {
 		});
 	}
 
-	// add percentage to defense/forcefield/..
-	var _defense = $('img[src*="bar_dispel.gif"],[src*="nm_green.jpg"],[src*="seamonster_ship_health.jpg"]').parent()[0],
-			_defRegs = [
-				'^Castle Defense$',
-				'^Ragnarok\'s Glacial Armor$',
-				'^Your Ship\'s Defense$',
-				'^Illvasa, Plateau City\'s Defense$',
-				'^Skaar\'s Mana Forcefield$',
-				'^Party Health.Strength$'
-			], 
-			_defText = $('#app_body div:containsRegex(/' + _defRegs.join('|') + '/):first');
-	if(_defense && _defense.style && _defense.style.width !== "" && _defText && _defText.text()) {
-		var _percentage = _defense.style.width.substr(0, 5);
-		_defText.css('left', 51).text(_defText.text() + ' (' + _percentage + (_percentage.indexOf('%') > -1 ? ')' : '%)'));
-	}
+	var _defense = tools['Page'].runtime['defense'](), _stun = tools['Page'].runtime['stun_bar']().replace('Need ', '');
 
 	// rearrange attack result
 	if($('div.result').length > 0) {
@@ -50,20 +36,22 @@ tools['Page'].runtime['festival_battle_monster.php'] = function() {
 			'overflow' : 'hidden'
 		});
 		// add monster damage/health/... to result
-		$('div.result:has(img[src*="graphics/button_monster_attack_again.gif"]) span.result_body div:last, div.result:contains(" Again!")').append('<div id="MonsterResultDamage"><div>' + _monstername.text() + '</div><div>' + _defText.text() + '</div><div>Your Damage/Activity: ' + $('td.dragonContainer tr:has(a[href*="' + CastleAge.userId + '"]) > td:last').text().trim() + '</div></div>');
+		$('div.result:has(img[src*="graphics/button_monster_attack_again.gif"]) span.result_body div:last, div.result:contains(" Again!")').append('<div id="MonsterResultDamage"><div>' + _monstername.text() + '</div><div>' + _defense + '</div><div>' + _stun + '</div><div>Your Damage/Activity: ' + $('td.dragonContainer tr:has(a[href*="' + CastleAge.userId + '"]) > td:last').text().trim() + '</div></div>');
 		if($('div.result:contains(" Again!")').length > 0) {
 			$('#MonsterResultDamage').css('float', 'none');
 		}
 	}
-	
+
 	// answer CTA
-	var _form = $('form:has(div.imgButton > input[alt="Ask for help"]):first').clone();
-	_form.find('input[name="bqh"]').remove();
-	if($('form:has(div.imgButton > input[alt="Ask for help"]):first').length == 1) {
-		$('div > img[src*="siege"]:last').parent().append('<a href="http://apps.facebook.com/castle_age/festival_battle_monster.php?' + _form.serialize() + '&action=doObjective"><img id="cageSummonCTA" src="http://image4.castleagegame.com/graphics/mp_button_summon.gif"></a>').unbind('click').click(function() {
+	if($('form:has(input[alt="Ask for help"]):first').length == 1) {
+		var _form = $('#app_body form:has(input[alt="Ask for help"])').clone();
+		_form.find('input[name="bqh"]').remove();
+		$('#app_body form:has(input[alt="Ask for help"])').parent().parent().find('img[src*="siege"]:last').parent().append('<a href="http://apps.facebook.com/castle_age/festival_battle_monster.php?' + _form.serialize() + '&action=doObjective"><img id="cageSummonCTA" src="http://image4.castleagegame.com/graphics/mp_button_summon.gif"></a>').unbind('click').click(function() {
 			tools.Page.loadPage('festival_battle_monster.php?' + $('form:has(div.imgButton > input[alt="Ask for help"]):first').serialize() + '&action=doObjective');
 			return false;
 		});
 	}
-	
+
+	tools['Page'].runtime['battleStats']();
+
 };

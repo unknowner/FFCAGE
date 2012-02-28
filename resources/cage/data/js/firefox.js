@@ -2,27 +2,33 @@
 * FIREFOX only
 */
 
-//Desktop notes chrome only
+//Desktop notes currently chrome only
 function note(_data) {
-	var _note = webkitNotifications.createNotification('img/icon64.png', _data.t, _data.m);
-	_note.show();
-	setTimeout(function() {
-		_note.cancel();
-	}, 10000);
+
 }
 
+var _window = window || this.unsafeWindow;
+
 // update check
-var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
-if(_window.location.hostname == 'apps.facebook.com') {
-	$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-		console.log('github: ', _window['cageFFVersion'], ' - local: ', version.string());
-		if(_window['cageFFVersion'] != version.string()) {
-			if(confirm('You can now update CAGE to version ' + _window['cageFFVersion']) == true) {
-				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _window['cageFFVersion'].replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
-			}
-		}
-	});
-}
+/*
+if(_window.location.hostname === 'apps.facebook.com') {
+	$('head').append('<script src="https://github.com/downloads/unknowner/FFCAGE/update.js" type="text/javascript"></script>');
+	console.log('update...');
+	/*$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus, jqxhr) {
+	 console.log('update...');
+	 console.log('data:' + data);
+	 console.log('textStatus:' + textStatus);
+	 console.log('jqxhr:' + jqxhr.responseText);
+	 if(textStatus === 'success' && data !== undefined) {
+	 console.log('github: ', _window['cageFFVersion'], ' - local: ', version.string());
+	 if(_window['cageFFVersion'] !== version.string()) {
+	 if(confirm('You can now update CAGE to version ' + _window['cageFFVersion']) == true) {
+	 location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _window['cageFFVersion'].replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
+	 }
+	 }
+	 }
+	 }, 'script');
+}*/
 // CSS problems
 $('body').css({
 	'height' : '100%',

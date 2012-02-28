@@ -1,16 +1,16 @@
-new tool('Assister');
+tool('Assister');
 
 tools.Assister.settings = function() {
 
 	//tools.Assister.runtimeUpdate();
 	tools.Settings.heading(language.assisterSetName);
-	tools.Settings.text(language.assisterSetReqPermDesc);
-	tools.Settings.button(language.assisterSetReqPermAction, tools.Assister.requestPermisson);
-	tools.Settings.text('');
 	tools.Settings.textbox(language.assisterSetMaxStamAction, tools.Assister.runtime.Stamina, 'cageAssisterStamina');
 	tools.Settings.text(language.assisterSetMessDesc);
+	tools.Settings.onoff(language.assisterCommentMonster, tools.Assister.runtime.assisterCommentMonster, 'assisterCommentMonster', tools.Assister.runtimeUpdate);
 	tools.Settings.textbox(language.assisterSetMonMessAction, tools.Assister.runtime.monsterMessage, 'cageAssisterMonsterMessage');
+	tools.Settings.onoff(language.assisterCommentFBPost, tools.Assister.runtime.assisterCommentFBPost, 'assisterCommentFBPost', tools.Assister.runtimeUpdate);
 	tools.Settings.textbox(language.assisterSetFBMessAction, tools.Assister.runtime.facebookMessage, 'cageAssisterFacebookMessage');
+	tools.Settings.onoff(language.assisterLikeFBPost, tools.Assister.runtime.assisterLikeFBPost, 'assisterLikeFBPost', tools.Assister.runtimeUpdate);
 	tools.Settings.text(language.assisterSetFriendLstDesc);
 	tools.Settings.dropdown(language.assisterSetFriendList, tools.Assister.runtime.assisterLists, tools.Assister.runtime.assisterList, 'cageAssisterList', function(_value) {
 		console.log(_value);
@@ -33,25 +33,16 @@ tools.Assister.runtimeUpdate = function() {
 		assisterList : item.get('cageAssisterList', 'Castle Age players'),
 		assisterLists : {
 			'Castle Age players' : 'Castle Age players'
-		}
+		},
+		assisterCommentMonster : item.get('assisterCommentMonster', true),
+		assisterCommentFBPost : item.get('assisterCommentFBPost', true),
+		assisterLikeFBPost : item.get('assisterLikeFBPost', true)
 	}
 	tools.Facebook.getFriendlists(function(_names) {
 		$.each(_names, function(_i, _e) {
 			tools.Assister.runtime.assisterLists[_e] = _e;
 		});
 	});
-};
-/*
- * Request permisson to let CA post for user
- */
-tools.Assister.requestPermisson = function() {
-	addFunction(function() {
-		FB.login(function(response) {
-			console.log(response);
-		}, {
-			scope : 'publish_stream'
-		});
-	}, null, true, true);
 };
 /*
  * Get CTAs from Livefeed
@@ -141,29 +132,39 @@ tools.Assister.assist = function(_ids) {
 				console.log('Assister - Assisted for:', _cta);
 				tools.Assister.runtime.Assisted.push(_cta);
 				_num = _num.match(/\d+(?:st|nd|rd|th)/)[0];
-				post(_cta.link.replace('doObjective', 'commentDragon') + '&text=' + _num + ' for ' + _cta.name + ' ' + tools.Assister.runtime.monsterMessage);
-				get('party.php?casuser=' + _cta.uid, function(_guarddata) {
-					var _postid = $('div.streamContainer:has(div.streamName > a[href*="' + _cta.link + '"]) input[name="like_recent_news_post_id"]:first', _guarddata).val();
-					console.log('Assister - Like & Comment on FB post: ', _postid);
-					var _fbpost = _postid.match(/\d+/g);
-					console.log('Assister - Post Link: http://www.facebook.com/permalink.php?story_fbid=' + _fbpost[1] + '&id=' + _fbpost[0]);
-					addFunction(function(_data) {
-						FB.api("/" + _data.postid + "/likes", 'post', function(response) {
-							console.log('Assister - FB Like done: ', response);
-						});
-					}, JSON.stringify({
-						postid : _postid
-					}), true, false);
-					addFunction(function(_data) {
-						FB.api("/" + _data.postid + "/comments", 'post', _data, function(response) {
-							console.log('Assister - FB Comment done: ', response);
-						});
-					}, JSON.stringify({
-						postid : _postid,
-						message : _num + ' ' + tools.Assister.runtime.facebookMessage
-					}), true, false);
+				if(tools.Assister.runtime.assisterCommentMonster === true) {
+					post(_cta.link.replace('doObjective', 'commentDragon') + '&text=' + _num + ' for ' + _cta.name + ' ' + tools.Assister.runtime.monsterMessage);
+				}
+				if(tools.Assister.runtime.assisterCommentFBPost === true || tools.Assister.runtime.assisterLikeFBPost === true) {
+					get('party.php?casuser=' + _cta.uid, function(_guarddata) {
+						var _postid = $('div.streamContainer:has(div.streamName > a[href*="' + _cta.link + '"]) input[name="like_recent_news_post_id"]:first', _guarddata).val();
+						console.log('Assister - Like & Comment on FB post: ', _postid);
+						var _fbpost = _postid.match(/\d+/g);
+						console.log('Assister - Post Link: http://www.facebook.com/permalink.php?story_fbid=' + _fbpost[1] + '&id=' + _fbpost[0]);
+						if(tools.Assister.runtime.assisterLikeFBPost === true) {
+							addFunction(function(_data) {
+								FB.api("/" + _data.postid + "/likes", 'post', function(response) {
+									console.log('Assister - FB Like done: ', response);
+								});
+							}, JSON.stringify({
+								postid : _postid
+							}), true, false);
+						}
+						if(tools.Assister.runtime.assisterCommentFBPost === true) {
+							addFunction(function(_data) {
+								FB.api("/" + _data.postid + "/comments", 'post', _data, function(response) {
+									console.log('Assister - FB Comment done: ', response);
+								});
+							}, JSON.stringify({
+								postid : _postid,
+								message : _num + ' ' + tools.Assister.runtime.facebookMessage
+							}), true, false);
+						}
+						tools.Assister.assist();
+					});
+				} else {
 					tools.Assister.assist();
-				});
+				}
 			} else {
 				console.log('Assister - No assist, maybe already assisted')
 				tools.Assister.assist();

@@ -1,4 +1,4 @@
-new tool('Functions');
+tool('Functions');
 
 tools.Functions.runtime = {};
 /*
@@ -20,7 +20,10 @@ tools.Functions.init = function() {
 	addFunction(tools.Functions.centerPopups, null, true, false);
 	addFunction(tools.Functions.hideFeedbackPositionBox, null, true, false);
 	addFunction(tools.Functions.cageRePos, null, true, false);
+};
 
+tools.Functions.addToCANav = function(_ul, _after, _href, _text) {
+	$('#' + _ul + ' li:has(a[href="' + _after + '"])').after('<li><a href="' + _href + '.php" onclick="ajaxLinkSend(\'globalContainer\', \'' + _href + '\'); return false;" style="color:#00fafd">' + _text + '</a></li>');
 };
 // Fixed Popups
 tools.Functions.cageRePos = function() {
@@ -38,7 +41,6 @@ tools.Functions.cageRePos = function() {
 		});
 		var _width = _sp.width() == 0 ? _sp.find('>div:first').width() : _sp.width();
 		var _margin = (770 - _width) / 2;
-		console.log(_width);
 		if(top) {
 			_sp.css('top', top);
 		}
@@ -57,7 +59,7 @@ tools.Functions.cageRePos = function() {
 }
 tools.Functions.centerPopups = function() {
 	window['centerPopups'] = function() {
-		$('.result_popup_message').each(function() {
+		$('div.result_popup_message').each(function() {
 			var _popup = $(this);
 			_popup.css({
 				'top' : 60,
@@ -117,7 +119,7 @@ tools.Functions.PositionAndDisplayPopupAtTop = function() {
 
 tools.Functions.PopupAtMousePosition = function() {
 	window['PopupAtMousePosition'] = function(event, fb_js_var) {
-		cageRePos(fb_js_var);
+		cageRePos(fb_js_var, Math.max(event.pageY + document.body.scrollTop - 326, 90 + document.body.scrollTop));
 	};
 };
 tools.Functions.PositionAndDisplayPopupAutoCenter = function() {

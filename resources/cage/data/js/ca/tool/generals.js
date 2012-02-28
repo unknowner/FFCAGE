@@ -1,4 +1,4 @@
-new tool('General');
+tool('General');
 
 tools.General.current = null;
 tools.General.runtime = {};
@@ -32,45 +32,65 @@ tools.General.runtimeUpdate = function() {
 	tools.General.runtime.generalsSetFixHeight = item.get('generalsSetFixHeight', false);
 	tools.General.generalsSetFixHeight();
 	tools.General.runtime.onlyFavourites = item.get('onlyFavouritesGenerals', false);
-	tools.General.runtime.favourites = item.get('favouriteGenerals', []);
+
+	tools.General.runtime.favList = item.get('favList', 'Favorites');
+	tools.General.runtime.favList = tools.General.runtime.favList == 'undefined' ? 'Favorites' : tools.General.runtime.favList;
+	tools.General.runtime.favLists = item.get('favLists', false);
+	tools.General.runtime.favorites = item.get('favFavorites', {
+		'Favorites' : []
+	});
 	if(!tools.General.runtime.general) {
 		tools.General.runtime.general = {};
 	}
+	if(tools.General.runtime.favLists == false) {
+		tools.General.runtime.favLists = ['Favorites'];
+		if(item.get('favouriteGenerals', false) !== false) {
+			tools.General.runtime.favorites.Favorites = item.get('favouriteGenerals', []);
+		}
+	}
+
 };
 //get current general from CA
 tools.General.get = function() {
 	if($('div[style*="general_plate.gif"] > div:first').length > 0) {
+		var _old = tools.General.current;
 		tools.General.current = $('div[style*="general_plate.gif"] > div:first').text().trim();
-		tools.General.set();
+		if(_old !== tools.General.current) {
+			$('#cageGeneralImageCharge').remove();
+			$('#cageGeneralImage').fadeOut('fast', tools.General.set)
+		}
 	}
 };
 // Set general image & name
 tools.General.set = function() {
 	var _g = tools.General.runtime.general[tools.General.current];
-	$('#cageGeneralImage').attr('src', _g.image).css({
-		'height' : 93,
-		'padding' : 0
-	});
 	$('#cageGeneralName').text(_g.name);
 	$('#cageGeneralAttack').text(_g.attack);
 	$('#cageGeneralDefense').text(_g.defense);
+	$('#cageGeneralText').text(_g.text);
+	$('#cageGeneralImageCharge').remove();
+	if(_g.charge) {
+		$('#cageGeneralImageContainer').append('<div id="cageGeneralImageCharge" style="width:' + Math.max(5, _g.charge) + '%;' + (_g.charge < 100 ? '' : 'background-color:#4F4;') + '"></div>')
+	}
+	$('#cageGeneralImage').attr('src', _g.image).show();
+	$('#cageGeneralImageContainer').show().fadeIn('slow');
 };
 // Set General by name
 tools.General.setByName = function(_name, _callback) {
 	if(_name !== tools.General.current) {
+		$('#cageGeneralImageCharge').remove();
 		var _g = tools.General.runtime.general[_name];
 		if(_g !== null) {
-			$('#cageGeneralImage').attr('src', 'http://image4.castleagegame.com/graphics/shield_wait.gif').css({
-				'height' : 30,
-				'padding' : 31
-			});
-			$.get('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh + '&signed_request=' + CastleAge.signed_request, function(_data) {
-				tools.General.parsePage(_data);
-				tools.General.current = _name;
-				tools.General.set();
-				if(_callback !== undefined) {
-					_callback();
-				}
+			$('#cageGeneralImage').fadeOut('fast', function() {
+				$('#cageGeneralImageContainer').hide();
+				get('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh, function(_data) {
+					tools.General.parsePage(_data);
+					tools.General.current = _name;
+					tools.General.set();
+					if(_callback !== undefined) {
+						_callback();
+					}
+				});
 			});
 		}
 	}
@@ -85,37 +105,45 @@ tools.General.update = function() {
 		window.setTimeout(tools.General.update, 200);
 	}
 };
+tools.General.lists = function() {
+	var _list = $('#cageSelectorList');
+	$.each(tools.General.runtime.favLists, function(_i, _e) {
+		console.log(_i, _e);
+		var _attr = {
+			value : _i
+		}
+		if(_e === tools.General.runtime.favList) {
+			_attr.selected = "selected"
+		}
+		_list.append($('<option>', _attr).text(_e));
+	});
+	_list.change(function() {
+		console.log('selected...', $('option:selected', this).text());
+		tools.General.runtime.favList = $('option:selected', this).text();
+		item.set('favList', tools.General.runtime.favList);
+		tools.General.renderFavs();
+	}).change();
+};
 tools.General.parsePage = function(_data) {
 	console.log('parse General page');
-	_data = _data ? _data : $('#app_body');
+	_data = _data ? $(_data) : $('#app_body');
 	$('div.generalSmallContainer2 div.general_pic_div3', _data).each(function(i, e) {
-		var $_this = $(this);
-		var $_image = $('form:has(input[name="item"]) input.imgButton', e);
-		var $_general = $_image.parents('div.generalSmallContainer2:first');
-		var _image = $_image.attr('src');
-		var _name = $_general.children('div.general_name_div3:first').text().trim();
-		var _item = $_this.parent().find('input[name="item"]').attr('value');
-		var _itype = $_this.parent().find('input[name="itype"]').attr('value');
-		var _text = $_general.children('div:last').children('div').html().trim().replace(/<br>/g, ' ');
-		var _stats = $_general.find('div.generals_indv_stats_padding');
-		var _att = _stats.children('div:eq(0)').text().trim();
-		var _def = _stats.children('div:eq(1)').text().trim();
-		var _lvl = $_general.find('div:contains("Level"):last').text().trim();
-		var _charge = $_general.find('div:contains("Charged"):last').text().trim();
-		_charge = _charge.length > 0 ? /\d+/.exec(_charge)[0] : null;
+		var $_this = $(this), $_image = $('form:has(input[name="item"]) input.imgButton', e), $_general = $_image.parents('div.generalSmallContainer2:first'), _name = $_general.children('div.general_name_div3:first').text().trim(), _stats = $_general.find('div.generals_indv_stats_padding'), _charge = $_general.find('div:contains("Charged"):last').text().trim();
 		tools.General.runtime.general[_name] = {
 			name : _name,
-			image : _image,
-			item : _item,
-			itype : _itype,
-			attack : _att,
-			defense : _def,
-			text : _text,
-			level : _lvl,
-			charge : _charge
+			image : $_image.attr('src'),
+			item : $_this.parent().find('input[name="item"]').attr('value'),
+			itype : $_this.parent().find('input[name="itype"]').attr('value'),
+			attack : _stats.children('div:eq(0)').text().trim(),
+			defense : _stats.children('div:eq(1)').text().trim(),
+			text : $_general.children('div:last').children('div').html().trim().replace(/<br>/g, ' '),
+			level : $_general.find('div:contains("Level"):last').text().trim()
 		};
+		if(_charge.length > 0) {
+			tools.General.runtime.general[_name].charge = /\d+/.exec(_charge)[0];
+		}
 	});
-	$('#cageGeneralSelector').empty().append('<span id="cageSelectorInfo" class="ui-state-active ui-corner-all"></span><div id="cageFavouriteGenerals"></div><div id="cageAllGenerals"></div>');
+	$('#cageGeneralSelector').empty().append('<span id="cageSelectorInfo" class="ui-state-active ui-corner-all"></span><select id="cageSelectorList"></select><div id="cageFavoriteGenerals"></div><div id="cageAllGenerals"></div>');
 	var _names = [];
 	$.each(tools.General.runtime.general, function(_i, _e) {
 		_names.push(_e.name);
@@ -124,7 +152,6 @@ tools.General.parsePage = function(_data) {
 	for(var i = 0, len = _names.length; i < len; i++) {
 		var _e = tools.General.runtime.general[_names[i]];
 		$('#cageAllGenerals').append($('<div>').append($('<img src="' + _e.image + '" alt="' + _e.name + '" />').click(function() {
-			console.log($(this).attr('alt'));
 			tools.General.setByName($(this).attr('alt'));
 			$('#cageGeneralSelector').slideToggle('slow');
 		}).hover(function() {
@@ -137,26 +164,35 @@ tools.General.parsePage = function(_data) {
 			$('#cageAllGenerals div:last').append('<div class="cageCharge" style="height:' + Math.max(10, _e.charge) + '%;' + (_e.charge < 100 ? '' : 'background-color:#4F4;') + '"></div>');
 		}
 	}
-	if(tools.General.runtime.favourites && tools.General.runtime.favourites.length > 0) {
-		var _tempFav = tools.General.runtime.favourites;
-		tools.General.runtime.favourites = [];
-		for(var i = 0, len = _tempFav.length; i < len; i++) {
-			$('#cageAllGenerals > div > img:last[alt="' + _tempFav[i] + '"]').click();
-		}
-	}
+	tools.General.lists();
+	tools.General.renderFavs();
 	tools.General.get();
 	tools.General.generalsSetFixHeight();
 };
-
+tools.General.renderFavs = function() {
+	$('#cageAllGenerals > div').show();
+	if(tools.General.runtime.favorites[tools.General.runtime.favList] && tools.General.runtime.favorites[tools.General.runtime.favList].length > 0) {
+		var _tempFav = tools.General.runtime.favorites[tools.General.runtime.favList];
+		//tools.General.runtime.favorites[tools.General.runtime.favList] = [];
+		$('#cageFavoriteGenerals').html('');
+		for(var i = 0, len = _tempFav.length; i < len; i++) {
+			//$('#cageAllGenerals > div > img:last[alt="' + _tempFav[i] + '"]').click();
+			$('#cageAllGenerals > div > img[alt="' + _tempFav[i] + '"]').parent().hide().clone(true, true).appendTo('#cageFavoriteGenerals').show().find('img:last').unbind('click hover').click(tools.General.clickRemove).hover(tools.General.hoverRemoveIn, tools.General.hoverRemoveOut);
+		}
+	} else {
+		$('#cageFavoriteGenerals').html('');
+	}
+}
 tools.General.clickAdd = function() {
-	tools.General.runtime.favourites.push($(this).attr('alt'));
-	item.set('favouriteGenerals', tools.General.runtime.favourites.sort());
-	$(this).mouseleave().parent().hide().clone(true, true).appendTo('#cageFavouriteGenerals').show().find('img:last').unbind('click').click(tools.General.clickRemove).hover(tools.General.hoverRemoveIn, tools.General.hoverRemoveOut);
+	tools.General.runtime.favorites[tools.General.runtime.favList].push($(this).attr('alt'));
+	console.log('clickAdd:', tools.General.runtime.favorites);
+	item.set('favFavorites', tools.General.runtime.favorites);
+	$(this).mouseleave().parent().hide().clone(true, true).appendTo('#cageFavoriteGenerals').show().find('img:last').unbind('click hover').click(tools.General.clickRemove).hover(tools.General.hoverRemoveIn, tools.General.hoverRemoveOut);
 };
 tools.General.clickRemove = function() {
 	var _name = $(this).attr('alt');
-	tools.General.runtime.favourites.splice(tools.General.runtime.favourites.indexOf(_name), 1);
-	item.set('favouriteGenerals', tools.General.runtime.favourites);
+	tools.General.runtime.favorites[tools.General.runtime.favList].splice(tools.General.runtime.favorites[tools.General.runtime.favList].indexOf(_name), 1);
+	item.set('favFavorites', tools.General.runtime.favorites);
 	$(this).parent().hide().remove();
 	$('#cageAllGenerals img[alt="' + _name + '"]:first').parent().show();
 };
@@ -193,19 +229,44 @@ tools.General.init = function() {
 	var _elm = {
 		general : '<div id="cageGeneralContainer"></div>',
 		generalImageContainer : '<div id="cageGeneralImageContainer"></div>',
-		generalImage : '<img id="cageGeneralImage" src="http://image4.castleagegame.com/graphics/shield_wait.gif" style="height:30px;padding:31px;"/>',
-		generalName : '<span id="cageGeneralName"></span>',
+		generalStatsDiv : '<div id="cageGeneralStats">',
+		generalImage : '<img id="cageGeneralImage"/>',
+		generalName : '<span id="cageGeneralName"></span><hr style="margin:0;>',
 		generalValues : '<img src="http://image4.castleagegame.com/graphics/demi_symbol_2.gif" id="cageGeneralAttImg" /><span id="cageGeneralAttack"></span><img src="http://image4.castleagegame.com/graphics/demi_symbol_3.gif" id="cageGeneralDefImg" /><span id="cageGeneralDefense"></span>',
+		generalText : '<div id="cageGeneralText"></div>',
 		generalSelector : '<div id="cageGeneralSelector" class="ui-widget-content ui-corner-bottom">',
 	}
-	$('#cageContainer').append($(_elm.general).prepend($(_elm.generalImageContainer).append(_elm.generalImage)).append(_elm.generalName).append(_elm.generalValues)).prepend(_elm.generalSelector);
-	$('#cageGeneralImage').click(function() {
+
+	$('#cageContainer').append($(_elm.general).prepend($(_elm.generalImageContainer).append(_elm.generalValues).append(_elm.generalImage).append($(_elm.generalStatsDiv).append(_elm.generalName).append(_elm.generalText))).prepend(_elm.generalSelector));
+	$('#cageGeneralImage, #cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense').click(function() {
 		if(tools.General.runtime.onlyFavourites == true) {
 			$('#cageAllGenerals').hide();
 		} else {
 			$('#cageAllGenerals').show();
 		}
 		$('#cageGeneralSelector').slideToggle('slow');
+	});
+	$('#cageGeneralImageContainer').hover(function() {
+		$('#cageGeneralStats').stop().animate({
+			'opacity' : 0.8,
+			'right' : 94,
+			'width' : 150
+		}, 'slow');
+		$('#cageGeneralAttImg, #cageGeneralDefImg').stop().animate({
+			'opacity' : 0.8
+		}, 'slow');
+		$('#cageGeneralAttack, #cageGeneralDefense').stop().animate({
+			'opacity' : 1
+		}, 'slow');
+	}, function() {
+		$('#cageGeneralStats').stop().animate({
+			'opacity' : 0,
+			'right' : 0,
+			'width' : 94
+		}, 'slow');
+		$('#cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense').stop().animate({
+			'opacity' : 0
+		}, 'slow');
 	});
 	tools.General.update();
 };

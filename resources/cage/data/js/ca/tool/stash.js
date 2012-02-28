@@ -1,4 +1,4 @@
-new tool('Stash');
+tool('Stash');
 
 tools.Stash.runtime = {};
 
@@ -6,9 +6,9 @@ tools.Stash.runtime.general = null;
 
 tools.Stash.start = function() {
 
-	tools.Stash.runtime.general = tools['General'].current;
-	if(tools['General'].runtime.general['Aeris'] !== null && tools['General'].current !== "Aeris") {
-		tools['General'].setByName('Aeris', tools.Stash.work);
+	tools.Stash.runtime.general = tools.General.current;
+	if(tools.General.runtime.general.Aeris !== null && tools.General.current !== "Aeris") {
+		tools.General.setByName('Aeris', tools.Stash.work);
 	} else {
 		tools.Stash.work();
 	}
@@ -27,8 +27,10 @@ tools.Stash.work = function() {
 			$('b.money').text($('b.money').text());
 		}
 		$('#gold_current_value').text('$0');
-		if(tools.Stash.runtime.general !== tools['General'].current) {
-			tools['General'].setByName(tools.Stash.runtime.general, tools.Stash.done);
+		console.log(tools.Stash.runtime.general);
+		console.log(tools.General.current);
+		if(tools.Stash.runtime.general !== tools.General.current) {
+			tools.General.setByName(tools.Stash.runtime.general, tools.Stash.done);
 		} else {
 			tools.Stash.done();
 		}
@@ -38,10 +40,10 @@ tools.Stash.done = function() {
 	$('#cageStash').removeAttr('disabled').css('cursor', 'pointer');
 };
 tools.Stash.init = function() {
-	$('#cageStatsContainer').append($('<button id="cageStash"></button>').click(function() {
+	$('#cageStatsContainer').append($('<button id="cageStash" title="Stash gold using Aeris"></button>').click(function() {
 		if($('#gold_current_value').text() !== '$0') {
 			$(this).attr('disabled', 'true').css('cursor', 'wait');
 			tools.Stash.start();
 		}
-		}));
+	}));
 };
