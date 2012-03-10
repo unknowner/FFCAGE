@@ -21,7 +21,9 @@ tools.Functions.init = function() {
 	addFunction(tools.Functions.hideFeedbackPositionBox, null, true, false);
 	addFunction(tools.Functions.cageRePos, null, true, false);
 };
-
+tools.Functions.addCAGEToCANav = function(_ul, _after, _callback, _text) {
+	$('#' + _ul + ' li:has(a[href="' + _after + '"])').after($('<li><a href="#" style="color:#00fafd;cursor:pointer;">' + _text + '</a></li>').click(_callback));
+};
 tools.Functions.addToCANav = function(_ul, _after, _href, _text) {
 	$('#' + _ul + ' li:has(a[href="' + _after + '"])').after('<li><a href="' + _href + '.php" onclick="ajaxLinkSend(\'globalContainer\', \'' + _href + '\'); return false;" style="color:#00fafd">' + _text + '</a></li>');
 };
@@ -42,8 +44,12 @@ tools.Functions.cageRePos = function() {
 		var _width = _sp.width() == 0 ? _sp.find('>div:first').width() : _sp.width();
 		var _margin = (770 - _width) / 2;
 		if(top) {
+			if(_sp.height() + (top - $(window).scrollTop() - $(window).height()) > 0) {
+				top -= _sp.height() + (top - $(window).scrollTop() - $(window).height());
+			}
 			_sp.css('top', top);
 		}
+
 		_sp.css({
 			'marginLeft' : (_margin),
 			'opacity' : 0
@@ -119,7 +125,8 @@ tools.Functions.PositionAndDisplayPopupAtTop = function() {
 
 tools.Functions.PopupAtMousePosition = function() {
 	window['PopupAtMousePosition'] = function(event, fb_js_var) {
-		cageRePos(fb_js_var, Math.max(event.pageY + document.body.scrollTop - 326, 90 + document.body.scrollTop));
+		//cageRePos(fb_js_var, Math.max(event.pageY + document.body.scrollTop - 326, 90 + document.body.scrollTop));
+		cageRePos(fb_js_var, 90 + document.body.scrollTop);
 	};
 };
 tools.Functions.PositionAndDisplayPopupAutoCenter = function() {

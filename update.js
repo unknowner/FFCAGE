@@ -1,1 +1,4 @@
-window['cageFFVersion'] = "1.1.24b"
+var up = document.createElement('INPUT');
+up.id = 'cageOnlineVersion';
+up.value = '1.1.26b';
+document.body.appendChild(up);

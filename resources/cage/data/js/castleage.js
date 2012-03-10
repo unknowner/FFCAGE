@@ -16,7 +16,6 @@ $.each(['css/cage.css', 'css/ca_cage.css', 'css/ca_stats.css', 'css/ca_general.c
 });
 _append += '<link id="cageTheme" rel="stylesheet" type="text/css" href="' + getPath('css/dark-hive/jquery-ui.css') + '" >';
 _append += '<script type="text/javascript" language="javascript" src="' + getPath('js/jquery.js') + '"></script>';
-
 $(document.body).append($('<input>').attr({
 	'id' : 'signed_request',
 	'type' : 'hidden'
@@ -24,14 +23,14 @@ $(document.body).append($('<input>').attr({
 _append = _css = undefined;
 
 // Add CAGE container / repos menu
-$('center:first').prepend('<div id="cageContainer"><div id="cageStatsContainer"></div><div id="cageToolsContainer" class="ui-widget-content ui-corner-bottom"></div></div>');
+$('center:first').prepend('<div id="cageContainer"><div id="cageStatsContainer"></div><div id="cageToolsContainer" class="ui-widget-content ui-corner-bottom"><a target="_blank" href="http://cagenhancer.blogspot.com/"><img id="cageLogoShadow" src="' + getPath('img/icon64shadow.png') + '"><img id="cageLogo" src="' + getPath('img/icon64.png') + '"></a></div></div>');
 
 CastleAge.startInterval = window.setInterval(function() {
 	if(CastleAge.signed_request !== null && CastleAge.userId !== null) {
 		window.clearInterval(CastleAge.startInterval);
 		window.setInterval(function() {
 			com.send(com.task.alive, com.port.facebook, null);
-		}, 600000);
+		}, 10000);
 		initTools();
 		var _startURL = $('#current_pg_url').attr('value');
 		if(_startURL.indexOf('?') !== -1) {

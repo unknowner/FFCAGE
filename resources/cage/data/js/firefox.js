@@ -7,28 +7,22 @@ function note(_data) {
 
 }
 
-var _window = window || this.unsafeWindow;
-
 // update check
-/*
-if(_window.location.hostname === 'apps.facebook.com') {
-	$('head').append('<script src="https://github.com/downloads/unknowner/FFCAGE/update.js" type="text/javascript"></script>');
-	console.log('update...');
-	/*$.getScript('https://github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus, jqxhr) {
-	 console.log('update...');
-	 console.log('data:' + data);
-	 console.log('textStatus:' + textStatus);
-	 console.log('jqxhr:' + jqxhr.responseText);
-	 if(textStatus === 'success' && data !== undefined) {
-	 console.log('github: ', _window['cageFFVersion'], ' - local: ', version.string());
-	 if(_window['cageFFVersion'] !== version.string()) {
-	 if(confirm('You can now update CAGE to version ' + _window['cageFFVersion']) == true) {
-	 location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _window['cageFFVersion'].replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
-	 }
-	 }
-	 }
-	 }, 'script');
-}*/
+var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
+if(_window.location.hostname == 'apps.facebook.com') {
+	console.log('update init...');
+	$.getScript('http://cloud.github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
+		var _on = $('#cageOnlineVersion').val();
+		console.log('github: ', _on, ' - local: ', version.string());
+		if(_on != version.string()) {
+			if(confirm('You can now update CAGE to version ' + _on) == true) {
+				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _on.update.replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
+			}
+		}
+	}).error(function(x) {
+		console.log("error:", x.statusText);
+	});
+}
 // CSS problems
 $('body').css({
 	'height' : '100%',
@@ -53,6 +47,7 @@ var com = {
 	ports : {},
 	// Available tasks
 	task : {
+		alive : 'TASK_ALIVE',
 		init : 'TASK_INIT',
 		fbReady : 'TASK_FBREADY',
 		getGeneral : 'TASK_GETGENERAL',
@@ -71,7 +66,9 @@ var com = {
 		startGifter : 'TASK_STARTGIFTER',
 		startStash : 'TASK_STASH',
 		resize : 'TASK_RESIZE',
-		showSettings : 'TASK_SETTINGS'
+		showSettings : 'TASK_SETTINGS',
+		hideBluebar : 'TASK_HIDEBAR',
+		showBluebar : 'TASK_SHOWBAR'
 	},
 	// Called in content script to setup port
 	initPort : function(_port) {

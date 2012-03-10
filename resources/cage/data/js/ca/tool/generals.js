@@ -47,6 +47,9 @@ tools.General.runtimeUpdate = function() {
 		if(item.get('favouriteGenerals', false) !== false) {
 			tools.General.runtime.favorites.Favorites = item.get('favouriteGenerals', []);
 		}
+		item.set('favList', 'Favorites');
+		item.set('favLists', ['Favorites']);
+		item.set('favFavorites', tools.General.runtime.favorites);
 	}
 
 };
@@ -57,7 +60,7 @@ tools.General.get = function() {
 		tools.General.current = $('div[style*="general_plate.gif"] > div:first').text().trim();
 		if(_old !== tools.General.current) {
 			$('#cageGeneralImageCharge').remove();
-			$('#cageGeneralImage').fadeOut('fast', tools.General.set)
+			$('#cageGeneralImageContainer').fadeOut('slow', function(){$(this).hide();tools.General.set();});
 		}
 	}
 };
@@ -72,8 +75,8 @@ tools.General.set = function() {
 	if(_g.charge) {
 		$('#cageGeneralImageContainer').append('<div id="cageGeneralImageCharge" style="width:' + Math.max(5, _g.charge) + '%;' + (_g.charge < 100 ? '' : 'background-color:#4F4;') + '"></div>')
 	}
-	$('#cageGeneralImage').attr('src', _g.image).show();
-	$('#cageGeneralImageContainer').show().fadeIn('slow');
+	$('#cageGeneralImage').attr('src', _g.image);
+	$('#cageGeneralImageContainer').fadeIn('slow');
 };
 // Set General by name
 tools.General.setByName = function(_name, _callback) {
@@ -81,9 +84,10 @@ tools.General.setByName = function(_name, _callback) {
 		$('#cageGeneralImageCharge').remove();
 		var _g = tools.General.runtime.general[_name];
 		if(_g !== null) {
-			$('#cageGeneralImage').fadeOut('fast', function() {
-				$('#cageGeneralImageContainer').hide();
+			$('#cageGeneralImageContainer').fadeOut('slow', function() {
+				$(this).hide();
 				get('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh, function(_data) {
+					tools.Stats.update($('#main_sts', _data));
 					tools.General.parsePage(_data);
 					tools.General.current = _name;
 					tools.General.set();
@@ -127,13 +131,13 @@ tools.General.lists = function() {
 tools.General.parsePage = function(_data) {
 	console.log('parse General page');
 	_data = _data ? $(_data) : $('#app_body');
-	$('div.generalSmallContainer2 div.general_pic_div3', _data).each(function(i, e) {
-		var $_this = $(this), $_image = $('form:has(input[name="item"]) input.imgButton', e), $_general = $_image.parents('div.generalSmallContainer2:first'), _name = $_general.children('div.general_name_div3:first').text().trim(), _stats = $_general.find('div.generals_indv_stats_padding'), _charge = $_general.find('div:contains("Charged"):last').text().trim();
+	$('table.layout div.general_pic_div3', _data).each(function(i, e) {
+		var $_this = $(this), $_image = $('form:has(input[name="item"]) input.imgButton', e), $_general = $_this.parent(), _name = $_general.children('div.general_name_div3:first').text().trim(), _stats = $_general.find('div.generals_indv_stats_padding'), _charge = $_general.find('div:contains("Charged"):last').text().trim();
 		tools.General.runtime.general[_name] = {
 			name : _name,
 			image : $_image.attr('src'),
-			item : $_this.parent().find('input[name="item"]').attr('value'),
-			itype : $_this.parent().find('input[name="itype"]').attr('value'),
+			item : $_this.find('input[name="item"]').attr('value'),
+			itype : $_this.find('input[name="itype"]').attr('value'),
 			attack : _stats.children('div:eq(0)').text().trim(),
 			defense : _stats.children('div:eq(1)').text().trim(),
 			text : $_general.children('div:last').children('div').html().trim().replace(/<br>/g, ' '),

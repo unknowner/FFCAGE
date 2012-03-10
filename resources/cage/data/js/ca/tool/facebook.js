@@ -1,16 +1,32 @@
 tool('Facebook');
 
-tools.Facebook.runtime = {
-	friendListWait : false,
-	friendListCallbacks : [],
-	friendlists : [],
-	idWait : false,
-	idCallbacks : [],
-	id : [],
-	friendlistId : {},
-	listMembersWait : false,
-	listMembersNext : []
+tools.Facebook.settings = function() {
+
+	tools.Settings.heading('Facebook');
+	tools.Settings.onoff('Hide Bluebar on start', tools.Facebook.runtime.hideBluebar, 'cage.Facebook.Bluebar', function() {
+		tools.Facebook.runtime.hideBluebar != tools.Facebook.runtime.hideBluebar;
+	});
 };
+tools.Facebook.runtimeUpdate = function() {
+
+	tools.Facebook.runtime = {
+		friendListWait : false,
+		friendListCallbacks : [],
+		friendlists : [],
+		idWait : false,
+		idCallbacks : [],
+		id : [],
+		friendlistId : {
+		},
+		listMembersWait : false,
+		listMembersNext : [],
+		hideBluebar : item.get('cage.Facebook.Bluebar', false)
+	};
+	$('#cageHideFBBluebar').data('hidden', tools.Facebook.runtime.hideBluebar);
+	if(tools.Facebook.runtime.hideBluebar === true) {
+		$('#cageHideFBBluebar').data('hidden', !tools.Facebook.runtime.hideBluebar).click();
+	}
+}
 /*
  * Get friendlist members
  */
@@ -164,4 +180,17 @@ tools.Facebook.CAPlayers = function(_callback) {
 	} else {
 		tools.Facebook.runtime.idCallbacks.push(_callback);
 	}
+};
+
+tools.Facebook.init = function() {
+	$(document.body).append($('<img id="cageHideFBBluebar" src="http://www.facebook.com/favicon.ico" style="z-index:2;cursor:pointer;position:fixed;top:1px;left:2px;">').data('hidden', false).click(function() {
+		if($(this).data('hidden') === false) {
+			$(this).data('hidden', true);
+			com.send(com.task.hideBluebar, com.port.facebook);
+		} else {
+			$(this).data('hidden', false);
+			com.send(com.task.showBluebar, com.port.facebook);
+		}
+	}));
+	tools.Facebook.runtimeUpdate();
 };
