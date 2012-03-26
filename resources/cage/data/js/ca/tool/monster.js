@@ -12,6 +12,7 @@ tools.Monster.settings = function() {
 	tools.Settings.onoff(language.monsterSetFestival1, tools.Monster.runtime.toCheck.festival1, 'cageMonsterFestival1', tools.Monster.runtimeUpdate);
 	tools.Settings.onoff(language.monsterSetFestival2, tools.Monster.runtime.toCheck.festival2, 'cageMonsterFestival2', tools.Monster.runtimeUpdate);
 	tools.Settings.onoff(language.monsterSetRaid, tools.Monster.runtime.toCheck.raid, 'cageMonsterRaid', tools.Monster.runtimeUpdate);
+	tools.Settings.onoff(language.monsterSetConquest, tools.Monster.runtime.toCheck.conquest, 'cageMonsterConquest', tools.Monster.runtimeUpdate);
 };
 
 tools.Monster.runtimeUpdate = function() {
@@ -25,7 +26,9 @@ tools.Monster.runtimeUpdate = function() {
 			festival2 : item.get('cageMonsterFestival2', true),
 			monster : item.get('cageMonsterMonster', true),
 			raid : item.get('cageMonsterRaid', true),
-		}
+			conquest : item.get('cageMonsterConquest', true)
+		},
+		conquestLands : item.get('cageMonsterConquestLands', {})
 	};
 	$('#cageMonsterContainer').css('opacity', tools.Monster.runtime.transparent ? 0.7 : 1);
 };
@@ -33,7 +36,7 @@ tools.Monster.runtimeUpdate = function() {
 tools.Monster.start = function() {
 	if(!tools.Monster.runtime.listFilled) {
 		tools.Monster.runtime.listFilled = true;
-		$('#cageMonsterContainer').empty().append($('<img id="cageMonsterClose" src="http://image4.castleagegame.com/graphics/popup_close_button.png">').click(tools.Monster.done));
+		$('#cageMonsterContainer').empty().append('<span id="cageMonsterReload">Loading...</span>').append($('<img id="cageMonsterClose" src="http://image4.castleagegame.com/graphics/popup_close_button.png">').click(tools.Monster.done));
 		tools.Monster.runtime.checkFor = [];
 		$.each(tools.Monster.runtime.toCheck, function(_i, _e) {
 			if(_e === true) {
@@ -51,10 +54,10 @@ tools.Monster.checkFor = function() {
 	if(tools.Monster.runtime.checkFor !== undefined && tools.Monster.runtime.checkFor.length > 0) {
 		tools.Monster[tools.Monster.runtime.checkFor.shift()]();
 	} else {
-		$('#cageMonsterContainer').append($('<span id="cageMonsterReload">Reload</span>').click(function() {
+		$('#cageMonsterReload').text('Reload').click(function() {
 			tools.Monster.runtime.listFilled = false;
 			tools.Monster.start();
-		}));
+		});
 	}
 };
 tools.Monster.monster = function() {
@@ -147,6 +150,25 @@ tools.Monster.raid = function() {
 		});
 		tools.Monster.checkFor();
 	});
+};
+tools.Monster.conquest = function() {
+	$.each(tools.Monster.runtime.conquestLands, function(_i, _e) {
+		if(_e == true) {
+			get(_i, function(_monster) {
+				$('#guildv2_monster_list_body div[style="padding:10px 0 0 20px;"] > div', _monster).each(function(_i, _e) {
+					var _e = $(_e);
+					var _img = $('<div class="cageMonsterListItem ui-corner-all">').hide().css('backgroundImage', 'url(' + _e.find('img:first').attr('src') + ')');
+					//_img.append('<div class="cageMonsterName">' + _e.find('> div:eq(1) > div:first > div:first').text() + '</div>');
+					_img.append('<div class="cageMonsterName">' + $('div[id="guildv2_monster_list_top"]:first', _monster).text() + '</div>');
+					_img.append($('<div class="cageMonsterButton">').click(tools.Monster.closeInstant).append(_e.find('> div:eq(2) a')));
+					_img.append('<img class="cageMonsterTag" src="http://image4.castleagegame.com/graphics/war_battle_guildbtllands_on.jpg">');
+					$('#cageMonsterContainer').append(_img);
+					$('div.cageMonsterListItem:last').slideDown('slow');
+				});
+			});
+		}
+	});
+	tools.Monster.checkFor();
 };
 tools.Monster.closeInstant = function() {
 	if(tools.Monster.runtime.closeInstant) {

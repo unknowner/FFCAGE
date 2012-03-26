@@ -117,6 +117,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/tool/stats.js"),
 		
 		data.url("js/ca/page/allpages.js"),
+		
 		data.url("js/ca/page/alchemy.js"),
 		data.url("js/ca/page/arena_battle.js"),
 		data.url("js/ca/page/army.js"),
@@ -145,6 +146,12 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/page/symbolquests.js"),
 		data.url("js/ca/page/symbols.js"),
 		data.url("js/ca/page/treasure_chest.js"),
+		data.url("js/ca/page/guildv2_conquest_command.js"),
+		data.url("js/ca/page/conquest_duel.js"),
+		data.url("js/ca/page/soldiers.js"),
+		data.url("js/ca/page/oracle.js"),
+		data.url("js/ca/page/achievements.js"),
+
 		data.url("js/castleage.js")
 	],
 	onAttach : function onAttach(worker) {

@@ -1,5 +1,4 @@
 tool('Class');
-
 tools.Class.runtimeUpdate = function() {
 	tools.Class.runtime = {
 		powersEquip : [],
@@ -14,9 +13,13 @@ tools.Class.runtimeUpdate = function() {
 		classSet : null
 	}
 };
-
 tools.Class.start = function() {
 	get('guild_class_power_equipment.php', function(_data) {
+		$('#cageStatsClassLogo').css({
+			'cursor' : 'pointer',
+			'backgroundImage' : 'url(\'http://image4.castleagegame.com/graphics/class_' + tools.Class.runtime.classSet + '.gif\')'
+		}).removeAttr('disabled');
+		tools.Class.statsPowerImages(_data);
 		tools.Class.showClass(_data);
 	});
 };
@@ -67,7 +70,6 @@ tools.Class.showClass = function(_data) {
 			small : 'http://image4.castleagegame.com/graphics/' + $(this).val(),
 			big : $(this).next('div.imgButton').find('img').attr('src')
 		};
-		//$('#cageClassPowerSelector').append('<img src="' + tools.Class.runtime.powersOwn[_key].small + '">')
 	});
 	// equipped powers
 	$('div[id^="open_power_slot"]', _data).each(function(_index) {
@@ -87,7 +89,8 @@ tools.Class.showClass = function(_data) {
 					_this.data('power', '');
 					tools.Class.runtime.powersEquip[_this.data('slot')] = '';
 					_pow.slideUp('fast').data('show', false).empty();
-					_this.attr('src', 'http://image4.castleagegame.com/graphics/g_char_power_blank.gif')
+					_this.attr('src', 'http://image4.castleagegame.com/graphics/g_char_power_blank.gif');
+					$('#cageStatsClass span img:eq(' + _index + ')').hide();
 				}));
 				$.each(tools.Class.runtime.powersOwn, function(_i) {
 					if(tools.Class.runtime.powersEquip.indexOf(_i) == -1) {
@@ -101,7 +104,7 @@ tools.Class.showClass = function(_data) {
 							}, 'slow');
 						}).click(function() {
 							tools.Class.runtime.powersEquip[_this.data('slot')] = $(this).data('equip');
-							console.log(tools.Class.runtime.powersEquip);
+							$('#cageStatsClass span img:eq(' + _index + ')').show().attr('src', tools.Class.runtime.powersOwn[$(this).data('equip')].small);
 							_this.attr('src', tools.Class.runtime.powersOwn[$(this).data('equip')].small);
 							_pow.slideUp('fast').data('show', false).empty();
 						}));
@@ -147,8 +150,17 @@ tools.Class.showClass = function(_data) {
 	}, 'slow');
 }
 tools.Class.changeClass = function(_class) {
-
+	$('#cageStatsClassLogo').css({
+		'cursor' : 'wait',
+		'backgroundImage' : 'url(\'http://image4.castleagegame.com/graphics/shield_wait.gif\')'
+	}).attr('disabled', 'disabled');
 	get('guild_class_power_equipment.php?action=chooseClass&' + _class + '=' + _class, function(_data) {
+		$('#cageStatsClassLogo').css({
+			'cursor' : 'pointer',
+			'backgroundImage' : 'url(\'http://image4.castleagegame.com/graphics/class_' + _class + '.gif\')'
+		}).removeAttr('disabled');
+		tools.Class.statsPowerImages(_data);
+		$('#cageStatsClass div:last').text(_class[0].toUpperCase() + _class.slice(1));
 		tools.Class.showClass(_data);
 	});
 };
@@ -160,9 +172,44 @@ tools.Class.done = function() {
 	tools.Class.fbButton.enable();
 };
 tools.Class.init = function() {
+	tools.Class.runtimeUpdate();
 	$('#cageContainer').append('<div id="cageClassContainer"><div id="cageClassSelected">ACTIVE</div><div id="cageClasses" style="width:603px;height:50px;background-image:url(http://image4.castleagegame.com/graphics/g_char_selectchar_plate.gif);"></div><div id="cageClassPower"></div><div id="cageClassSave"></div></div>');
+	get('guild_class_power_equipment.php', function(data) {
+		CastleAge.inGuild = $('a[href="http://apps.facebook.com/castle_age/guildv2_home.php"]', data).length > 0 ? true : false;
+		var _class = /g_char_header_(\w+).jpg/.exec($('div[id="guildv2_class_top"]:first div[style*="graphics/g_char_header_"]:first', data).css('backgroundImage'))[1];
+		tools.Class.runtime.classSet = _class;
+		$('#cageStatsContainer').append($('<button id="cageStatsClassLogo" style="background-image:url(\'http://image4.castleagegame.com/graphics/class_' + _class + '.gif\')"></button>').click(function() {
+			$('#cageStatsClassLogo').css({
+				'cursor' : 'wait',
+				'backgroundImage' : 'url(\'http://image4.castleagegame.com/graphics/shield_wait.gif\')'
+			}).attr('disabled', 'disabled');
+			tools.Class.start();
+		}));
+		$('#main_sts_container').append('<div id="cageStatsClass" class="cageStatBackground"><div></div><div>' + _class[0].toUpperCase() + _class.slice(1) + '</div><span></span></div>');
+		tools.Class.statsPowerImages(data);
+	})
 	tools.Class.fbButton.add('Class', function() {
 		tools.Class.fbButton.disable();
 		tools.Class.start();
+	});
+};
+tools.Class.statsPowerImages = function(data) {
+	$('#cageStatsClass span img').remove();
+	$('div[id^="open_power_slot_"] img', data).each(function() {
+		$('#cageStatsClass span').append($('<img src="' + $(this).attr('src') + '">').hover(function() {
+			$(this).stop(true).animate({
+				'height' : 45,
+				'marginBottom' : 4,
+				'marginLeft' : -8,
+				'marginRight' : -8
+			}, 'fast').css('zIndex', 1);
+		}, function() {
+			$(this).stop(true).animate({
+				'height' : 16,
+				'marginBottom' : 0,
+				'marginLeft' : 0,
+				'marginRight' : 0
+			}, 'fast').css('zIndex', 0);
+		}));
 	});
 };

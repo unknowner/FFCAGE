@@ -16,7 +16,7 @@ if(_window.location.hostname == 'apps.facebook.com') {
 		console.log('github: ', _on, ' - local: ', version.string());
 		if(_on != version.string()) {
 			if(confirm('You can now update CAGE to version ' + _on) == true) {
-				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _on.update.replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
+				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _on.replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
 			}
 		}
 	}).error(function(x) {

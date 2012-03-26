@@ -16,6 +16,7 @@ var language = {
 	cAgeheadText : 'Just a few settings to change some CA stuff.',
 	cAgeNoResults : 'Hide battles won message',
 	cageNoHourly : 'Hide hourly info messages',
+	cageNoUpgrade : 'Hide upgrade messages',
 	cageScrollGuildChat : 'Autoscroll guild chat',
 
 	// Settings
@@ -76,5 +77,6 @@ var language = {
 	monsterSetMonster : 'Monsters',
 	monsterSetFestival1 : 'Tower of Transcendence I',
 	monsterSetFestival2 : 'Tower of Transcendence II',
-	monsterSetRaid : 'Raids'
+	monsterSetRaid : 'Raids',
+	monsterSetConquest : 'Conquest'
 };
