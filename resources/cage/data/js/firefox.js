@@ -27,7 +27,8 @@ if(_window.location.hostname == 'apps.facebook.com') {
 $('body').css({
 	'height' : '100%',
 	'width' : '100%',
-	'position' : 'fixed'
+	'position' : 'fixed',
+	'overflow' : 'auto'
 });
 
 // Firefox get path to internals

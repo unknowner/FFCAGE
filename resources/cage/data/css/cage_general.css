@@ -5,14 +5,15 @@
 #cageGeneralImageContainer {
     height: 95px;
     width: 95px;
-    position: absolute;
     right: 9px;
     z-index: 4;
+    position: relative;
+    left: 0;
+    padding: 2px;
 }
 #cageGeneralImage {
     height: 95px;
     cursor: pointer;
-    box-shadow: -3px 0px 5px #000;
     z-index: 2;
 }
 #cageGeneralSelector {
@@ -252,21 +253,28 @@
 }
 #cageGeneralEquipment {
     position: absolute;
-    opacity: 0;
-    width: 52px;
-    right: -52px;
+    width: 88px;
+    left: 99px;
     text-align: left;
+    top: 53px;
 }
 #cageGeneralEquipment > img {
     z-index: 0;
     position: relative;
     border: 1px solid #000;
     margin: 0 -1px -1px 0;
+    width: 21px !important;
+    height: 21px !important;
+    opacity: 0.8;
 }
 #cageGeneralEquipment > img:hover {
     height: 28px !important;
     width: 28px !important;
     z-index: 1;
-    margin: 0 -2px -5px -3px;
+    height: 28px !important;
+    width: 28px !important;
+    z-index: 1;
+    margin: -3px -5px -5px -3px;
     box-shadow: 0 2px 5px 2px #000;
+    opacity: 1
 }

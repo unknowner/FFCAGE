@@ -7,6 +7,7 @@ tools.Page.runtime.allPages = function() {
 		_e();
 	})
 	//repos CA menu & add stuff
+	tools.Functions.addToCANav('mainMenu_home', 'index.php', 'specialmembership.php', 'Crusaders');
 	tools.Functions.addToCANav('mainMenu_keep', 'alchemy.php', 'goblin_emp.php', 'Goblin');
 	tools.Functions.addToCANav('mainMenu_monster', 'public_monster_list.php?monster_tier=3', 'army_news_feed.php', 'Live feed');
 	tools.Functions.addToCANav('mainMenu_battle', 'war_rank.php', 'raid.php', 'Raid');
@@ -25,15 +26,6 @@ tools.Page.runtime.allPages = function() {
 	// Favour points
 	$('#cageFavorPoints > span').text($('#main_bn div[style*="persistent_bar_oracle.gif"]').text().trim());
 
-	// Stat Points
-	if($('#main_bntp a:contains("My Stats")').text().match(/\d+/g) !== null) {
-		$('#cageStatPoints > span').text($('#main_bntp a:contains("My Stats")').text().match(/\d+/g)[0]);
-		$('#cageStatPoints > img').attr('src', 'http://image4.castleagegame.com/graphics/keep_upgrade_orange.gif');
-	} else {
-		$('#cageStatPoints > span').text('');
-		$('#cageStatPoints > img').attr('src', 'http://image4.castleagegame.com/graphics/keep_upgrade_green.gif');
-	}
-
 	//Stats
 	$('#main_sts').css('background', $('#main_bn').css('backgroundImage'));
 	window.setTimeout(function() {
@@ -46,7 +38,11 @@ tools.Page.runtime.allPages = function() {
 		$('#globalContainer > div:first').hide();
 	}
 
-	// xp to next lvl
+	// xp to next lvl and lvl bar fix
+	var _xpwidth = /\d+/.exec($('#st_5 > div:first > div > div')[0].style.width)[0];
+	if(_xpwidth !== null) {
+		$('#st_5 > div:first > div > div').css('width', parseInt(_xpwidth, 10) / 100 * 126);
+	}
 	if($('#st_2_5 strong:contains("to")').length == 0 && /\d+\/(\d+)/.exec($('#st_2_5 strong').text()) !== null) {
 		$('#st_2_5 strong').text(/\d+/.exec($('#st_5').attr('title'))[0] + ' to ' + /\d+\/(\d+)/.exec($('#st_2_5 strong').text())[1]);
 	}

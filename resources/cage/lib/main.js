@@ -114,6 +114,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/tool/potionEnergy.js"),
 		data.url("js/ca/tool/potionStamina.js"),
 		data.url("js/ca/tool/stash.js"),
+		data.url("js/ca/tool/statPoints.js"),
 		data.url("js/ca/tool/stats.js"),
 		
 		data.url("js/ca/page/allpages.js"),

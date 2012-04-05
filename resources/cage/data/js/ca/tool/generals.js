@@ -58,9 +58,13 @@ tools.General.get = function() {
 	if($('div[style*="general_plate.gif"] > div:first').length > 0) {
 		var _old = tools.General.current;
 		tools.General.current = $('div[style*="general_plate.gif"] > div:first').text().trim();
+		$('#cageGeneralEquipment').empty().append($('#main_bn div > img[style="width:24px;height:24px;"]'));
 		if(_old !== tools.General.current) {
 			$('#cageGeneralImageCharge').remove();
-			$('#cageGeneralImageContainer').fadeOut('slow', function(){$(this).hide();tools.General.set();});
+			$('#cageGeneralImageContainer').fadeOut('slow', function() {
+				$(this).hide();
+				tools.General.set();
+			});
 		}
 	}
 };
@@ -87,6 +91,7 @@ tools.General.setByName = function(_name, _callback) {
 			$('#cageGeneralImageContainer').fadeOut('slow', function() {
 				$(this).hide();
 				get('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh, function(_data) {
+					$('#cageGeneralEquipment').empty().append($('#main_bn div > img[style="width:24px;height:24px;"]', _data));
 					tools.Stats.update($('#main_sts', _data));
 					tools.General.parsePage(_data);
 					tools.General.current = _name;
@@ -138,8 +143,8 @@ tools.General.parsePage = function(_data) {
 			image : $_image.attr('src'),
 			item : $_this.find('input[name="item"]').attr('value'),
 			itype : $_this.find('input[name="itype"]').attr('value'),
-			attack : _stats.children('div:eq(0)').text().trim(),
-			defense : _stats.children('div:eq(1)').text().trim(),
+			attack : $_this.next('div:first').find('div:eq(0)').text().trim(),
+			defense : $_this.next('div:first').find('div:eq(1)').text().trim(),
 			text : $_general.children('div:last').children('div').html().trim().replace(/<br>/g, ' '),
 			level : $_general.find('div:contains("Level"):last').text().trim()
 		};
@@ -236,13 +241,13 @@ tools.General.init = function() {
 		generalStatsDiv : '<div id="cageGeneralStats">',
 		generalImage : '<img id="cageGeneralImage"/>',
 		generalName : '<span id="cageGeneralName"></span><hr style="margin:0;>',
-		generalValues : '<img src="http://image4.castleagegame.com/graphics/demi_symbol_2.gif" id="cageGeneralAttImg" /><span id="cageGeneralAttack"></span><img src="http://image4.castleagegame.com/graphics/demi_symbol_3.gif" id="cageGeneralDefImg" /><span id="cageGeneralDefense"></span>',
+		generalValues : '<div id="cageGeneralEquipment"></div><img src="http://image4.castleagegame.com/graphics/demi_symbol_2.gif" id="cageGeneralAttImg" /><span id="cageGeneralAttack"></span><img src="http://image4.castleagegame.com/graphics/demi_symbol_3.gif" id="cageGeneralDefImg" /><span id="cageGeneralDefense"></span>',
 		generalText : '<div id="cageGeneralText"></div>',
 		generalSelector : '<div id="cageGeneralSelector" class="ui-widget-content ui-corner-bottom">',
 	}
 
 	$('#cageContainer').append($(_elm.general).prepend($(_elm.generalImageContainer).append(_elm.generalValues).append(_elm.generalImage).append($(_elm.generalStatsDiv).append(_elm.generalName).append(_elm.generalText))).prepend(_elm.generalSelector));
-	$('#cageGeneralImage, #cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense').click(function() {
+	$('#cageGeneralImage, #cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense, #cageGeneralEquipment').click(function() {
 		if(tools.General.runtime.onlyFavourites == true) {
 			$('#cageAllGenerals').hide();
 		} else {
@@ -256,7 +261,7 @@ tools.General.init = function() {
 			'right' : 94,
 			'width' : 150
 		}, 'slow');
-		$('#cageGeneralAttImg, #cageGeneralDefImg').stop().animate({
+		$('#cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralEquipment').stop().animate({
 			'opacity' : 0.8
 		}, 'slow');
 		$('#cageGeneralAttack, #cageGeneralDefense').stop().animate({
@@ -268,7 +273,7 @@ tools.General.init = function() {
 			'right' : 0,
 			'width' : 94
 		}, 'slow');
-		$('#cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense').stop().animate({
+		$('#cageGeneralAttImg, #cageGeneralDefImg, #cageGeneralAttack, #cageGeneralDefense, #cageGeneralEquipment').stop().animate({
 			'opacity' : 0
 		}, 'slow');
 	});
