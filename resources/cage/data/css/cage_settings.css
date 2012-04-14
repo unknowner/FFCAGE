@@ -3,10 +3,20 @@
  */
 #cageSettingsButton {
     position: absolute;
-    top: 2px;
-    right: 12px;
-    height: 23px;
-    width: 23px;
+    top: 144px;
+    left: 125px;
+    height: 20px;
+    width: 55px;
+    z-index: 99;
+    border-radius: 1px;
+}
+#cageSettingsButton > span:first-of-type {
+    left: 0px;
+    top: 8px;
+}
+#cageSettingsButton > span:last-of-type {
+    font-size: 11px;
+    padding: 0 0 0 10px;
 }
 #cageSettings {
     position: absolute;
