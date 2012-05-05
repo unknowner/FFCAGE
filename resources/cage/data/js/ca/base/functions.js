@@ -41,8 +41,7 @@ tools.Functions.cageRePos = function() {
 			'margin' : 0,
 			'padding' : 0
 		});
-		var _width = _sp.width() == 0 ? _sp.find('>div:first').width() : _sp.width();
-		var _margin = (770 - _width) / 2;
+		var _width = _sp.width() == 0 ? _sp.find('>div:first').width() : _sp.width(), _margin = (770 - _width) / 2;
 		if(top) {
 			if(_sp.height() + (top - $(window).scrollTop() - $(window).height()) > 0) {
 				top -= _sp.height() + (top - $(window).scrollTop() - $(window).height());
@@ -61,6 +60,7 @@ tools.Functions.cageRePos = function() {
 				hidePositionBox();
 			}
 		});
+		_sp = _width = _margin = null;
 	};
 }
 tools.Functions.centerPopups = function() {
@@ -78,6 +78,7 @@ tools.Functions.centerPopups = function() {
 					hideFeedbackPositionBox();
 				}
 			});
+			_popup = null;
 		});
 	}
 };
@@ -156,11 +157,10 @@ tools.Functions.stat_increase_ticker = function() {
 			ticks_left = 0;
 		}
 
-		var time_container = $('#' + stat_type + '_time_container');
-		var time_value = $('#' + stat_type + '_time_value');
-		var current_val = $('#' + stat_type + '_current_value');
+		var time_container = $('#' + stat_type + '_time_container'), time_value = $('#' + stat_type + '_time_value'), current_val = $('#' + stat_type + '_current_value');
 
 		if(!time_container || !time_value || !current_val) {
+			time_container = time_value = current_val = null;
 			return;
 		}
 
@@ -178,15 +178,16 @@ tools.Functions.stat_increase_ticker = function() {
 		}
 
 		if(stat_max == stat_current) {
-			time_container.html('');
+			time_container.empty();
+			time_container = time_value = current_val = null;
 			return;
 		}
 
-		var mins = parseInt(ticks_left / 60);
-		var secs = ticks_left % 60;
-		time_value.html(mins + ':' + ((secs > 9) ? secs : '0' + secs ));
+		var mins = parseInt(ticks_left / 60), secs = ticks_left % 60;
+		time_value.text(mins + ':' + ((secs > 9) ? secs : '0' + secs ));
 		timedStats[stat_type] = setTimeout(function() {
 			stat_increase_ticker(ticks_left, stat_current, stat_max, tick_time, increase_value, stat_type, false);
 		}, 1000);
+		time_container = time_value = current_val = mins = secs = null;
 	};
 };

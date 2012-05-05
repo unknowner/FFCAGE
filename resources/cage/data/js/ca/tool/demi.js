@@ -15,7 +15,8 @@ tools.Demi.start = function() {
 
 	var _demi = $('#cageDemiContainer');
 	$('body > center').append('<div id="cageDemiResult">');
-	get('symbols.php', function(_demipage) {
+	signedGet('symbols.php', function(_demipage) {
+		_demipage = noSrc(_demipage);
 		$('div[id^="symbol_displaysymbols"]', _demipage).each(function(_i, _e) {
 			var _text = $(_e).text(), _deity = /\+1 max (\w+)/.exec(_text)[1], _points = /You have (\d+)/.exec(_text)[1];
 			_demi.append('<div><div id="cageDemi' + _deity + '" class="cageDemiImage" style="background-image:url(http://image4.castleagegame.com/graphics/deity_' + _deity + '.jpg);" symbol="' + (_i + 1) + '"><span>' + _points + '<br>' + _deity.substr(0, 1).toUpperCase() + _deity.substr(1) + '</span></div></div>');
@@ -33,7 +34,8 @@ tools.Demi.start = function() {
 		}, 'slow');
 		$('div.cageDemiImage').click(function() {
 			tools.Demi.runtime.bgSet = $(this).attr('symbol');
-			get('symbols.php?action=tribute&symbol=' + tools.Demi.runtime.bgSet, function(_blessed) {
+			signedGet('symbols.php?action=tribute&symbol=' + tools.Demi.runtime.bgSet, function(_blessed) {
+				_blessed = $(noSrc(_blessed));
 				$('#cageDemiResult').text($('div.result[contains("You cannot pay another tribute so soon"])', _blessed).text().trim()).dialog({
 					title : 'Demi Power',
 					resizable : false,
@@ -74,11 +76,8 @@ tools.Demi.timer = function() {
 			$('#cageNextDemi span:last').text('Now');
 			$('#cageNextDemi > div:eq(1) > div').css({
 				'width' : '100%',
-				'backgroundColor' : '#55c4f2'
-			}).effect("pulsate", {
-				times : 9999
-			}, 3000);
-			;
+				'backgroundColor' : '#f00'
+			});
 		} else {
 			var _p = (100 - (_hr * 60 + _min) * 100 / (_wait * 60));
 			$('#cageNextDemi span:last').text(_hr + ':' + ('0' + _min).slice(-2));
@@ -88,6 +87,9 @@ tools.Demi.timer = function() {
 			});
 		}
 	}
+	setTimeout(function() {
+		tools.Demi.timer();
+	}, 60000);
 };
 tools.Demi.parse = function(_pagedata) {
 	// Set/check demi timer
@@ -102,8 +104,6 @@ tools.Demi.parse = function(_pagedata) {
 			_minute = parseInt(/(\d+)(?= minutes)/.exec(_pagedata)[0], 10);
 			_demi.setHours(_demi.getHours() + _hour - _wait, _demi.getMinutes() + _minute);
 		}
-		console.log(_wait);
-		console.log(_demi);
 		item.set('cageDemiLast', Date.parse(_demi));
 		item.set('cageDemiTime', _wait);
 		tools.Demi.timer();
@@ -131,7 +131,4 @@ tools.Demi.init = function() {
 		tools.Demi.start();
 	}));
 	tools.Demi.timer();
-	window.setInterval(function() {
-		tools.Demi.timer();
-	}, 60000);
 };

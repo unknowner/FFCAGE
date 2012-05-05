@@ -30,7 +30,7 @@ button.cageToolButton:last-of-type {
 #cageLogo {
     position: absolute;
     top: 6px;
-    left: 8px;
+    left: 6px;
 }
 .cageToolButton > span:last-of-type {
     padding: 0 0 1px 26px !important;
@@ -266,13 +266,25 @@ button.cageToolButton:last-of-type {
 }
 #cageSummonCTA {
     cursor: pointer;
-    position: relative;
-    top: -26px;
-    width: 112px;
-    left: 2px;
+    height: 15px;
+    margin: -2px 0 -4px -4px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 1px outset;
+    padding: 1px 3px 0 1px;
+    font-size: 11px;
+    color: #fff;
+    background-color: #600;
+    text-decoration: none;
+    width: 60px;
+    text-align: center;
 }
 #cageSummonCTA:hover {
-    opacity: 0.9;
+    background-color: #c00;
+}
+#cageSummonCTA:active {
+    background-color: #F00;
+    border: 1px inset;
 }
 /*
  * Player monster list
@@ -367,83 +379,26 @@ button.cageToolButton:last-of-type {
 #cageClassRogue:hover {
     background-image: url('http://image4.castleagegame.com/graphics/g_char_selectrogue.jpg');
 }
-.itemNumbers {
+.statUnit {
+    overflow: hidden;
     position: relative;
-    top: -16px;
-    text-align: right;
-    color: white;
+}
+.statUnit img {
+    border-radius: 6px;
+}
+.statUnit img + div {
     background-color: black;
-    border-top-left-radius: 6px;
     border-bottom-right-radius: 6px;
+    border-top-left-radius: 6px;
+    color: white;
+    float: right;
+    font-size: 11px;
     opacity: 0.7;
     padding: 1px 5px;
-    font-size: 12px;
-    float: right;
-    margin-bottom: -16px;
-}
-/*
- *  Alchemy.php
- */
-.alchemyItemNum {
-    position: relative;
-    top: -16px;
     text-align: right;
-    color: white;
-    background-color: black;
-    border-top-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    opacity: 0.7;
-    padding: 1px 5px;
-    font-size: 12px;
-    float: right;
-    right: 5px;
-}
-.recipetitle {
-    margin: 1px;
-}
-.alchemyRecipeBackMonster {
-    height: auto !important;
-    margin-bottom: 10px;
-}
-.alchemyRecipeBackMonster_inc {
-    padding: 1px 6px 6px 20px !important;
-}
-.alchemyRecipeBack {
-    height: auto !important;
-    margin-bottom: 10px;
-}
-.alchemyRecipeBack_inc {
-    padding: 1px 6px 6px 20px !important;
-}
-.alchemyRecipeBackClass {
-    height: auto !important;
-    margin-bottom: 10px;
-}
-.alchemyRecipeBackClass_inc {
-    padding: 1px 6px 6px 20px !important;
-}
-.alchemyQuestBack {
-    height: auto !important;
-    margin-bottom: 10px;
-}
-.alchemyQuestBack_inc {
-    padding: 1px 6px 6px 20px !important;
-}
-#cageHideRecipe {
-    position: relative;
-    top: 164px;
-    margin-left: 21px;
-    cursor: pointer;
-}
-#cageHideRecipe > img {
-    border-radius: 4px;
-}
-#cageHideRecipe > span {
-    top: -6px;
-    position: relative;
-    font-weight: bold;
-    left: 4px;
-    text-shadow: 1px 1px 1px white;
+    position: absolute;
+    margin-top: -15px;
+    right: 2px;
 }
 /*
  * News
@@ -510,21 +465,19 @@ button.cageToolButton:last-of-type {
     position: absolute;
     bottom: 0;
     left: 0;
-    background: #000;
-    padding: 10px;
+    background: rgba(0,0,0,0.75);
+    padding: 8px;
     color: #fff;
     font-size: 11px;
-    opacity: 0.75;
     border-top-right-radius: 8px;
 }
-#cageMonsterActivity {
+div.cageMonsterActivity {
     position: absolute;
     left: 0;
-    background: #000;
-    padding: 10px;
+    background: rgba(0,0,0,0.75);
+    padding: 8px;
     color: #fff;
     font-size: 11px;
-    opacity: 0.75;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
@@ -756,7 +709,7 @@ img.cageFBBluebar {
     left: -1px;
 }
 img.cageFBBluebarHidden {
-    z-index: 30;
+    z-index: 9999;
     cursor: pointer;
     position: fixed;
     top: 87px;

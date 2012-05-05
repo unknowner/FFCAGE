@@ -74,10 +74,10 @@ tools.General.get = function() {
 };
 // Set general image & name
 tools.General.set = function() {
-	var _g = tools.General.runtime.general[tools.General.current];
+	var _g = tools.General.runtime.general[tools.General.current], _values = $('div[style*="hot_container.gif"]').text().trim().match(/\d+/g);
 	$('#cageGeneralName').text(_g.name);
-	$('#cageGeneralAttack').text(_g.attack);
-	$('#cageGeneralDefense').text(_g.defense);
+	$('#cageGeneralAttack').text(_values[0]);
+	$('#cageGeneralDefense').text(_values[1]);
 	$('#cageGeneralText').text(_g.text);
 	$('#cageGeneralImageCharge').remove();
 	if(_g.charge) {
@@ -94,10 +94,12 @@ tools.General.setByName = function(_name, _callback) {
 		var _g = tools.General.runtime.general[_name];
 		if(_g !== null) {
 			$('#cageGeneralImage, #cagegeneralname, #cageGeneralDefense, #cageGeneralAttack').fadeOut('slow');
-			get('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh, function(_data) {
-				var _i = $(_data).find('#main_bn div > img[style="width:24px;height:24px;"]');
+			signedGet('generals.php?item=' + _g.item + '&itype=' + _g.itype + '&bqh=' + CastleAge.bqh, function(_data) {
+				$data = $(noSrc(_data));
+				$('#main_bn').html($data.find('#main_bn').html());
+				var _i = $('#main_bn').find('div > img[style="width:24px;height:24px;"]');
 				if($('div.generalContainerBox:first').length == 1) {
-					$('div.generalContainerBox:first').next('div').replaceWith($(_data).find('div.generalContainerBox:first').next('div'))
+					$('div.generalContainerBox:first').next('div').replaceWith($data.find('div.generalContainerBox:first').next('div'))
 				}
 				setTimeout(function() {
 					if(_i.length > 0) {
@@ -107,7 +109,6 @@ tools.General.setByName = function(_name, _callback) {
 				tools.Stats.update($('#main_sts', _data));
 				tools.General.parsePage(_data);
 				tools.General.current = _name;
-				tools.General.set();
 				if(_callback !== undefined) {
 					_callback();
 				}
@@ -121,12 +122,12 @@ tools.General.update = function() {
 		if($('div.generalContainerBox:first').length == 1) {
 			tools.General.parsePage();
 		} else {
-			get('generals.php', function(_data) {
+			signedGet('generals.php', function(_data) {
 				tools.General.parsePage(_data);
 			});
 		}
 	} else {
-		window.setTimeout(tools.General.update, 100);
+		setTimeout(tools.General.update, 100);
 	}
 };
 tools.General.lists = function() {
@@ -148,12 +149,14 @@ tools.General.lists = function() {
 	}).change();
 };
 tools.General.parsePage = function(_data) {
-	_data = _data ? $(_data) : $('#app_body');
+	var _names = [], _src = _data ? 'nosrc' : 'src';
+	_data = _data ? $(noSrc(_data)) : $('#app_body');
 	_data.find('table.layout div.general_pic_div3').each(function(i, e) {
 		var $_this = $(this), $_image = $('form:has(input[name="item"]) input.imgButton', e), $_general = $_this.parent(), _name = $_general.children('div.general_name_div3:first').text().trim(), _stats = $_general.find('div.generals_indv_stats_padding'), _charge = $_this.find('div[style*="gen_chargebarsmall.gif"]:last'), _gtext = $_general.children('div:last').children('div');
+		_names.push(_name);
 		tools.General.runtime.general[_name] = {
 			name : _name,
-			image : $_image.attr('src'),
+			image : $_image.attr(_src),
 			item : $_this.find('input[name="item"]').attr('value'),
 			itype : $_this.find('input[name="itype"]').attr('value'),
 			attack : $_this.next('div:first').children('div:eq(0)').text().trim(),
@@ -166,12 +169,10 @@ tools.General.parsePage = function(_data) {
 			tools.General.runtime.general[_name].cooldown = /\d+(?= Hour cooldown)/ig.exec(tools.General.runtime.general[_name].text)[0];
 		}
 	});
-	$('#cageGeneralSelector').html('<span id="cageSelectorInfo" class="ui-state-active ui-corner-left"></span><select id="cageSelectorList"></select><div id="cageFavoriteGenerals"></div><div id="cageAllGenerals"></div>');
-	var _names = [];
-	$.each(tools.General.runtime.general, function(_i, _e) {
-		_names.push(_e.name);
-	});
 	_names.sort();
+	$('#cageGeneralSelector').html('<span id="cageSelectorInfo" class="ui-state-active ui-corner-left"></span><select id="cageSelectorList"></select><div id="cageFavoriteGenerals"></div><div id="cageAllGenerals"></div>');
+
+	console.log(tools.General.runtime.general);
 	for(var i = 0, len = _names.length; i < len; i++) {
 		var _e = tools.General.runtime.general[_names[i]];
 		$('#cageAllGenerals').append($('<div>').append($('<img src="' + _e.image + '" alt="' + _e.name + '" />').click(function() {
@@ -191,6 +192,7 @@ tools.General.parsePage = function(_data) {
 	tools.General.renderFavs();
 	tools.General.get();
 	tools.General.generalsSetFixHeight();
+	_data = _names = null;
 };
 tools.General.renderFavs = function() {
 	$('#cageAllGenerals > div').show();
@@ -282,5 +284,9 @@ tools.General.init = function() {
 			$(this).hide()
 		});
 	});
+	$('#cageGeneralEquipment').click(function() {
+		tools.Page.loadPage('guild_class_item_equipment.php')
+	});
 	tools.General.update();
+	_elm = null;
 };

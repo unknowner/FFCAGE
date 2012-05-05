@@ -1,5 +1,5 @@
 // generals
-tools['Page'].runtime['generals.php'] = function() {
+tools.Page.pages['generals.php'] = function() {
 
 	console.log('Page: generals.php');
 
@@ -28,7 +28,7 @@ tools['Page'].runtime['generals.php'] = function() {
 		_displ.find('div > img:last-child').each(function() {
 			$(this).click(function() {
 				tools.General.runtime.favorites[tools.General.runtime.favList].splice(tools.General.runtime.favorites[tools.General.runtime.favList].indexOf($(this).attr('alt')), 1);
-				item.set('favLists', tools.General.runtime.favLists);
+				item.set('favFavorites', tools.General.runtime.favorites);
 				$('#cageFavsList').change();
 				tools.General.renderFavs();
 			});
@@ -62,7 +62,7 @@ tools['Page'].runtime['generals.php'] = function() {
 		console.log(_name);
 		if(_name !== 'Favorites' && _name !== undefined && _name.length !== 0) {
 			$('option:selected').remove();
-			delete tools.General.runtime.favorites[_name];
+			tools.General.runtime.favorites[_name] = null;
 			tools.General.runtime.favLists.splice(tools.General.runtime.favLists.indexOf(_name), 1);
 			item.set('favLists', tools.General.runtime.favLists);
 			tools.General.runtime.favList = $('option:selected', this).text();
@@ -80,13 +80,15 @@ tools['Page'].runtime['generals.php'] = function() {
 				var _displ = $('#cageFavsDisplay');
 				_displ.empty();
 				$.each(tools.General.runtime.favorites[tools.General.runtime.favList], function() {
-					_displ.append('<div style="background-image:url(\'' + tools.General.runtime.general[this].image + '\');">').append('<img src="' + getPath('img/favdel.png') + '" alt="' + tools.General.runtime.general[this].name + '"/></div>').click(function() {
+					_displ.append($('<div>').addClass('ui-state-default').css('backgroundImage', 'url(\'' + tools.General.runtime.general[this].image + '\')').append($('<img>').attr({
+						'src' : getPath('img/favdel.png'),
+						'alt' : tools.General.runtime.general[this].name
+					}).click(function() {
 						tools.General.runtime.favorites[tools.General.runtime.favList].splice(tools.General.runtime.favorites[tools.General.runtime.favList].indexOf($(this).attr('alt')), 1);
-						item.set('favLists', tools.General.runtime.favLists);
-						console.log($(this).attr('alt'));
+						item.set('favFavorites', tools.General.runtime.favorites);
 						$('#cageFavsList').change();
 						tools.General.renderFavs();
-					});
+					})));
 				});
 				tools.General.renderFavs();
 			}

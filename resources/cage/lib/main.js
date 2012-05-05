@@ -47,7 +47,7 @@ function passCAMessage(_data) {
 	if(com.worker.facebook !== null) {
 		com.worker.facebook.port.emit(com.port.facebook, _data);
 	} else {
-		window.setTimeout(function() {
+		setTimeout(function() {
 			passCAMessage(_data);
 		}, 100);
 	}
@@ -57,7 +57,7 @@ function passFBMessage(_data) {
 	if(com.worker.castleAge !== null) {
 		com.worker.castleAge.port.emit(com.port.castleAge, _data);
 	} else {
-		window.setTimeout(function() {
+		setTimeout(function() {
 			passFBMessage(_data);
 		}, 100);
 	}
@@ -147,6 +147,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/page/guild_shop.js"),
 		data.url("js/ca/page/guildv2_conquest_expansion.js"),
 		data.url("js/ca/page/guildv2_battle_monster.js"),
+		data.url("js/ca/page/guildv2_formation.js"),
 		data.url("js/ca/page/index.js"),
 		data.url("js/ca/page/item.js"),
 		data.url("js/ca/page/keep.js"),
@@ -154,8 +155,10 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/page/magic.js"),
 		data.url("js/ca/page/monster_quests.js"),
 		data.url("js/ca/page/player_monster_list.js"),
+		data.url("js/ca/page/public_monster_list.js"),
 		data.url("js/ca/page/quests.js"),
 		data.url("js/ca/page/raid.js"),
+		data.url("js/ca/page/symbolquests.js"),
 		data.url("js/ca/page/symbols.js"),
 		data.url("js/ca/page/treasure_chest.js"),
 		data.url("js/ca/page/guildv2_conquest_command.js"),

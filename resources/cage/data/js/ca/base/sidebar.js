@@ -1,5 +1,52 @@
 new tool('Sidebar');
 
+tools.Sidebar.init = function() {
+
+	tools.Sidebar.hideSection($('#cageSidebarHeader'), '#cageSettingsButton, #cageGeneralImageContainer, #cageGeneralStats', 'General');
+	tools.Sidebar.hideSection($('#cageSidebarStats'), '.cageSidebarStat', 'Stats');
+	tools.Sidebar.hideSection($('#cageSidebarTools'), '.cageToolButton', 'Tools');
+
+};
+
+tools.Sidebar.hideSection = function(_section, _child, _text) {
+
+	function sectionHover(_sec) {
+		var _inOut = _sec.data('inOut');
+		if(_sec.data('hidden') === true) {
+			_inOut = 1;
+		} else {
+			_inOut = _inOut === 0 ? 1 : 0;
+		}
+		_sec.data('inOut', _inOut);
+		_sec.children('.cageSidebarSectionHider').stop().animate({
+			opacity : _sec.data('inOut')
+		})
+	}
+
+
+	_section.hover(function() {
+		sectionHover(_section);
+	}).data({
+		'hidden' : false,
+		'inOut' : 0
+	}).prepend('<div class="cageSidebarSectionHider ui-icon ui-icon-circle-triangle-n">');
+	_section.children('.cageSidebarSectionHider').toggle(function() {
+		_section.unbind('hover').data('hidden', true).children('.cageSidebarSectionHider').removeClass('ui-icon-circle-triangle-n').addClass('ui-icon-circle-triangle-s');
+		_section.css({
+			'height' : 9,
+			'overflow' : 'hidden'
+		}).children(_child).hide().end().append('<div class="cageSidebarSectionHiderText">' + _text + '</div>');
+	}, function() {
+		_section.hover(function() {
+			sectionHover(_section);
+		}).children('.cageSidebarSectionHider').removeClass('ui-icon-circle-triangle-s').addClass('ui-icon-circle-triangle-n');
+		_section.data('hidden', false).css({
+			'height' : '',
+			'overflow' : ''
+		}).children('.cageSidebarSectionHiderText').remove().end().children(_child).show();
+	});
+};
+
 tools.Sidebar.button = {
 
 	add : function(_id, _text, _call) {
