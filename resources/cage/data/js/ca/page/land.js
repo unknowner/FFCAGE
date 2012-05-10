@@ -19,4 +19,11 @@ tools.Page.pages['land.php'] = function() {
 	if(_pin !== false) {
 		$('#' + _pin + ' > img.cagePinIt').click();
 	}
+	// ROI
+	$('#section_land, #section_special_land').children().each(function() {
+		var _income = parseInt($(this).find('div > strong.gold:first').text().replace(/,/g, ''), 10);
+		var _price = parseInt($(this).find('div > strong.gold:last').text().replace(/,/g, ''), 10);
+		console.log(_income, _price, _income / _price);
+	});
+
 };

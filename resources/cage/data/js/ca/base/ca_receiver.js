@@ -22,6 +22,11 @@ function receiver(_data) {
 			break;
 		case com.task.alive:
 			break;
+		case com.task.caStart:
+			if(location.search.indexOf('needclickers=1') === -1) {
+				initCastleAge();
+			}
+			break;
 		default:
 			console.log(_data.task + ' unknown!');
 	}

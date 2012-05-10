@@ -8,21 +8,24 @@ function note(_data) {
 }
 
 // update check
-var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
-if(_window.location.hostname == 'apps.facebook.com') {
-	console.log('update init...');
-	$.getScript('http://cloud.github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
-		var _on = $('#cageOnlineVersion').val();
-		console.log('github: ', _on, ' - local: ', version.string());
-		if(_on != version.string()) {
-			if(confirm('You can now update CAGE to version ' + _on) == true) {
-				location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _on.replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
+function ffUpdateCheck() {
+	var _window = (this.unsafeWindow) ? this.unsafeWindow : window;
+	if(_window.location.hostname == 'apps.facebook.com') {
+		console.log('update init...');
+		$.getScript('http://cloud.github.com/downloads/unknowner/FFCAGE/update.js', function(data, textStatus) {
+			var _on = $('#cageOnlineVersion').val();
+			console.log('github: ', _on, ' - local: ', version.string());
+			if(_on != version.string()) {
+				if(confirm('You can now update CAGE to version ' + _on) == true) {
+					location.href = 'https://github.com/downloads/unknowner/FFCAGE/CAGE_' + _on.replace(/\./g, '_') + '.xpi?x=' + (Math.random() * 1000);
+				}
 			}
-		}
-	}).error(function(x) {
-		console.log("error:", x.statusText);
-	});
+		}).error(function(x) {
+			console.log("error:", x.statusText);
+		});
+	}
 }
+
 // CSS problems
 $('body').css({
 	'height' : '100%',
@@ -50,6 +53,8 @@ var com = {
 	task : {
 		alive : 'TASK_ALIVE',
 		init : 'TASK_INIT',
+		caStart : 'TASK_CASTART',
+		fbStart : 'TASK_FBSTART',
 		fbReady : 'TASK_FBREADY',
 		getGeneral : 'TASK_GETGENERAL',
 		general : 'TASK_GENERAL',
@@ -83,15 +88,23 @@ var com = {
 	},
 	// Send Messages to ports
 	send : function(_task, _port, _data) {
-		console.log('send:', _task, _port, _data);
-		if(_task == 'NOTE') {
-			console.log('NOTE:', _data.t, _data.m)
-		} else {
-			self.port.emit(_port, {
+		console.log('send:', _port, com.port.current.name)
+		if(_port === com.port.current.name) {
+			receiver({
 				task : _task,
 				port : _port,
 				data : _data
 			});
+		} else {
+			if(_task == 'NOTE') {
+				console.log('NOTE:', _data.t, _data.m)
+			} else {
+				self.port.emit(_port, {
+					task : _task,
+					port : _port,
+					data : _data
+				});
+			}
 		}
 	},
 	note : function(_title, _message) {

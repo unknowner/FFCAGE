@@ -18,6 +18,8 @@ var com = {
 	task : {
 		alive : 'TASK_ALIVE',
 		init : 'TASK_INIT',
+		caStart : 'TASK_CASTART',
+		fbStart : 'TASK_FBSTART',
 		fbReady : 'TASK_FBREADY',
 		getGeneral : 'TASK_GETGENERAL',
 		general : 'TASK_GENERAL',
@@ -42,14 +44,14 @@ var com = {
 };
 
 var data = require("self").data, workers = {};
-console.log('dataurl:' + data.url("js/version.js"));
+
 function passCAMessage(_data) {
 	if(com.worker.facebook !== null) {
 		com.worker.facebook.port.emit(com.port.facebook, _data);
 	} else {
 		setTimeout(function() {
 			passCAMessage(_data);
-		}, 100);
+		}, 50);
 	}
 }
 
@@ -59,30 +61,9 @@ function passFBMessage(_data) {
 	} else {
 		setTimeout(function() {
 			passFBMessage(_data);
-		}, 100);
+		}, 50);
 	}
 }
-
-console.log('FB...');
-var pageModFacebook = require("page-mod").PageMod({
-	include : ["http://apps.facebook.com/castle_age/*", "https://apps.facebook.com/castle_age/*"],
-	contentScriptWhen : 'end',
-	contentScriptFile : [
-		data.url("js/version.js"),
-		data.url("js/jquery.js"),
-		data.url("js/firefox.js"),
-		data.url("js/common.js"),
-		data.url("js/fb/fb_receiver.js"),
-		data.url("js/fb/fb_start.js"),
-		data.url("js/facebook.js")],
-	onAttach : function onAttach(worker) {
-		com.worker.facebook = worker;
-		com.worker.facebook.port.on(com.port.castleAge, function(_data) {
-			passFBMessage(_data);
-		});
-		console.log('FB attached:');
-	}
-});
 
 console.log('CA...');
 var pageModCastleAge = require("page-mod").PageMod({
@@ -177,5 +158,24 @@ var pageModCastleAge = require("page-mod").PageMod({
 		console.log('CA attached:');
 	}
 });
-//com.initBackground();
-console.log('CAGE main.js done');
+
+console.log('FB...');
+var pageModFacebook = require("page-mod").PageMod({
+	include : ["http://apps.facebook.com/castle_age/*", "https://apps.facebook.com/castle_age/*"],
+	contentScriptWhen : 'end',
+	contentScriptFile : [
+		data.url("js/version.js"),
+		data.url("js/jquery.js"),
+		data.url("js/firefox.js"),
+		data.url("js/common.js"),
+		data.url("js/fb/fb_receiver.js"),
+		data.url("js/fb/fb_start.js"),
+		data.url("js/facebook.js")],
+	onAttach : function onAttach(worker) {
+		com.worker.facebook = worker;
+		com.worker.facebook.port.on(com.port.castleAge, function(_data) {
+			passFBMessage(_data);
+		});
+		console.log('FB attached:');
+	}
+});
