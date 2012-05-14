@@ -5,13 +5,17 @@ tools.Page.pages['index.php'] = function() {
 	var xp = 0, bp = 0, wp = 0, cp = 0, cop = 0, win = 0, lose = 0, deaths = 0, cash = 0, list = [], users = {}, nemesis = {
 		user : null,
 		lose : 0
-	}, last = null, oldest = null;
-	$('#newsFeedSection div[style*="graphics/news_innercontainer_mid.gif"]').each(function(i, el) {
-		if(last === null) {
-			last = $(el).prev().text().replace(' ago', '').replace('Victory! ', '');
-		} else {
-			oldest = $(el).prev().text().replace(' ago', '').replace('Victory! ', '');
+	}, last = null, oldest = '';
+	$('#newsFeedSection span').parent().each(function() {
+		if($(this).text().indexOf('ago') !== -1) {
+			if(last === null) {
+				last = $(this).text().trim();
+			} else {
+				oldest = $(this).text().trim();
+			}
 		}
+	});
+	$('#newsFeedSection div[id^="battle_messages_"] > div').each(function(i, el) {
 		var txt = $(el).text().replace(/,/g, ''), my_xp = 0, my_bp = 0, my_wp = 0, my_cash = 0, my_cp = 0, my_cop = 0, result = 1, _uid;
 		if(txt.match(/You were killed/i)) {
 			killed = true;

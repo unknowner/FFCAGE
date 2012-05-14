@@ -25,6 +25,7 @@ function ffUpdateCheck() {
 		});
 	}
 }
+ffUpdateCheck();
 
 // CSS problems
 $('body').css({
