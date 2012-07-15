@@ -87,6 +87,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/base/cage.js"),
 		data.url("js/ca/base/castleage.js"),
 		data.url("js/ca/base/facebook.js"),
+		data.url("js/ca/base/copter.js"),
 		data.url("js/ca/base/news.js"),
 
 		data.url("js/ca/tool/armyCleaner.js"),
@@ -147,6 +148,7 @@ var pageModCastleAge = require("page-mod").PageMod({
 		data.url("js/ca/page/soldiers.js"),
 		data.url("js/ca/page/oracle.js"),
 		data.url("js/ca/page/achievements.js"),
+		data.url("js/ca/page/war_council.js"),
 
 		data.url("js/castleage.js")
 	],
