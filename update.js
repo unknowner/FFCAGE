@@ -1,4 +1,4 @@
 var up = document.createElement('INPUT');
 up.id = 'cageOnlineVersion';
-up.value = '1.2.11b';
+up.value = '1.2.12b';
 document.body.appendChild(up);
